@@ -260,7 +260,7 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
         <div class="dropzone" id="dropzone">
           <div class="ic"><svg class="icon" style="width:1.6rem;height:1.6rem"><use href="#i-image"></use></svg></div>
           <strong>Clique ou arraste os arquivos aqui</strong>
-          <span>Imagens (JPG, PNG, WEBP) ou vídeos (MP4, WEBM, MOV), até 5 arquivos, máx. 80MB cada</span>
+          <span>Imagens (JPG, PNG, WEBP) ou vídeos (MP4, WEBM, MOV), até 5 arquivos, vídeos de até 2GB cada</span>
         </div>
         <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp,video/mp4,video/webm,video/quicktime" multiple />
         <div class="thumbs" id="thumbs"></div>
@@ -343,6 +343,9 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
 </script>
 
 <script>
+  function escapeHtmlLocal(str){
+    return String(str||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
   function getDeviceId(){
     let id = localStorage.getItem("denuncia_mulher_device_id");
     if(!id){ id = "dev-" + Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem("denuncia_mulher_device_id", id); }
@@ -385,7 +388,7 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
   // Vídeos vão direto (não dá pra comprimir sem bibliotecas pesadas), só
   // limitamos o tamanho máximo pra não travar o envio em conexões ruins.
   const MAX_FILES = 5;
-  const MAX_VIDEO_MB = 80;
+  const MAX_VIDEO_MB = 2048;
   let arquivosSelecionados = []; // [{file, previewUrl, tipo:'imagem'|'video'}]
 
   function comprimirImagem(file, maxLado = 1440, qualidade = 0.72){
@@ -431,7 +434,7 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
       }
       const isVideo = f.type.startsWith("video/");
       if(isVideo && f.size > MAX_VIDEO_MB * 1024 * 1024){
-        uploadHint.textContent = `O vídeo "${f.name}" passa de ${MAX_VIDEO_MB}MB e não foi adicionado.`;
+        uploadHint.textContent = `O vídeo "${f.name}" passa de ${(MAX_VIDEO_MB/1024).toFixed(1)}GB e não foi adicionado.`;
         continue;
       }
       arquivosSelecionados.push({ file: f, previewUrl: URL.createObjectURL(f), tipo: isVideo ? "video" : "imagem" });
@@ -448,7 +451,7 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
           ? `<video src="${a.previewUrl}" muted></video><div class="vid-badge">▶ vídeo</div>`
           : `<img src="${a.previewUrl}" alt="Print ${i+1}">`}
         ${a.progresso != null ? `<div class="prog"><span class="spinner"></span><span class="pct">${a.progresso}%</span></div>` : ""}
-        ${a.erro ? `<div class="fail">Não deu pra enviar</div>` : ""}
+        ${a.erro ? `<div class="fail" title="${(a.erroMsg||'').replace(/"/g,'&quot;')}">Falhou: ${(a.erroMsg||'erro desconhecido').slice(0,40)}</div>` : ""}
         <div class="rm" onclick="removerArquivo(${i})">✕</div>
       </div>`).join("");
   }
@@ -478,14 +481,14 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
         // timeout fixo que corta um vídeo grande que está subindo normal,
         // só devagar.
         let ultimosBytes = 0;
-        let watchdog = setTimeout(checarTravado, 45000);
+        let watchdog = setTimeout(checarTravado, 90000);
         function checarTravado(){
           if(task.snapshot.bytesTransferred === ultimosBytes){
             task.cancel();
             reject(new Error("TIMEOUT: o envio parou de responder. Verifique sua internet e tente novamente com um arquivo menor, se possível."));
           } else {
             ultimosBytes = task.snapshot.bytesTransferred;
-            watchdog = setTimeout(checarTravado, 45000);
+            watchdog = setTimeout(checarTravado, 90000);
           }
         }
         task.on("state_changed", snap => {
@@ -509,6 +512,7 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
   async function enviarImagens(denunciaId){
     const anexos = [];
     let falharam = 0;
+    let ultimoErro = "";
     for(let i=0; i<arquivosSelecionados.length; i++){
       const { file, tipo } = arquivosSelecionados[i];
       try{
@@ -519,11 +523,13 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
         console.error("Falha ao enviar anexo:", err);
         arquivosSelecionados[i].progresso = null;
         arquivosSelecionados[i].erro = true;
+        ultimoErro = (err && err.code ? `[${err.code}] ` : "") + (err && err.message ? err.message : String(err));
+        arquivosSelecionados[i].erroMsg = ultimoErro;
         falharam++;
       }
       renderThumbs();
     }
-    return { anexos, falharam };
+    return { anexos, falharam, ultimoErro };
   }
 </script>
 
@@ -619,11 +625,13 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
 
       let anexos = [];
       let falharam = 0;
+      let ultimoErro = "";
       if(arquivosSelecionados.length){
         submitLabel.innerHTML = '<span class="spinner"></span> Enviando arquivos...';
         const resultado = await enviarImagens(denunciaId);
         anexos = resultado.anexos;
         falharam = resultado.falharam;
+        ultimoErro = resultado.ultimoErro;
       }
 
       submitLabel.innerHTML = '<span class="spinner"></span> Salvando denúncia...';
@@ -646,7 +654,7 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
       identBlock.style.display = "block";
       arquivosSelecionados = []; renderThumbs();
       if(falharam > 0){
-        setStatus("err", ICO.alert + ` Sua denúncia foi enviada e registrada, mas ${falharam} arquivo(s) anexado(s) não conseguiram subir (provavelmente a conexão caiu no meio do envio). O relato já está salvo com o Alto Comando mesmo assim — se quiser, você pode entrar em contato depois pra reenviar o print/vídeo.`);
+        setStatus("err", ICO.alert + ` Sua denúncia foi enviada e registrada, mas ${falharam} arquivo(s) anexado(s) não conseguiram subir. O relato já está salvo com o Alto Comando mesmo assim. Detalhe técnico do erro (mostre isso pra quem administra o site): ${escapeHtmlLocal(ultimoErro)}`);
       } else {
         setStatus("ok", ICO.check + " Recebemos sua mensagem. Obrigada por confiar em nós, vamos cuidar disso com atenção e sigilo. Você é muito importante pra essa comunidade.");
       }
