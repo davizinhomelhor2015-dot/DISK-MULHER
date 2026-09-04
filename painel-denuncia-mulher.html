@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel · Disk Denúncia Mulher</title>
+<meta name="theme-color" content="#0a0509">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ffb3d1'/%3E%3Cstop offset='46%25' stop-color='%23e0447e'/%3E%3Cstop offset='100%25' stop-color='%238a1f52'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' fill='%230a0509'/%3E%3Cpath d='M16 5 L27 16 L16 27 L5 16 Z' fill='url(%23g)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#0a0509; --void2:#120a10; --panel:#1a0f17; --panel2:#130b11;
+  --line:rgba(224,68,126,.18); --line2:rgba(230,230,235,.07); --line3:rgba(224,68,126,.36);
+  --rose:#f193b8; --rose-d:#e0447e; --violet:#a63d9c;
+  --red:#e0384a; --red-b:#ff6b76;
+  --green:#3fca7d; --amber:#f0a83c; --blue:#5b9bf0;
+  --steel:#f3e9ee; --body:#c2b2bb; --muted:#8f7e88; --muted2:#5c4e56;
+  --r:16px; --r-sm:10px;
+  --disp:'Oswald',system-ui,sans-serif; --text:'Barlow',system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
+  --gg:linear-gradient(135deg,#ffb3d1 0%,#e0447e 46%,#8a1f52 100%);
+  --gg-soft:linear-gradient(135deg,rgba(255,179,209,.16),rgba(138,31,82,.07));
+}
+*{box-sizing:border-box}
+html{scrollbar-color:var(--rose-d) var(--void2)}
+body{margin:0;background:var(--void);color:var(--body);font-family:var(--text);font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;
+  background-image:
+    radial-gradient(1000px 560px at 82% -10%,rgba(224,68,126,.07),transparent 60%),
+    linear-gradient(rgba(224,68,126,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(224,68,126,.04) 1px,transparent 1px);
+  background-size:auto,44px 44px,44px 44px;
+  background-attachment:fixed}
+a{color:inherit;text-decoration:none}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:var(--void2)}
+::-webkit-scrollbar-thumb{background:var(--rose-d);border-radius:99px;border:2px solid var(--void2)}
+:focus-visible{outline:2px solid var(--rose);outline-offset:2px}
+@keyframes riseIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.login-card{animation:riseIn .45s ease both}
+.icon{width:1em;height:1em;display:inline-block;vertical-align:-0.16em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.icon.filled{fill:currentColor;stroke:none}
+
+/* ---------- login ---------- */
+#loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.login-card{width:100%;max-width:380px;border:1px solid var(--line);border-radius:var(--r);background:linear-gradient(158deg,var(--panel),var(--panel2));padding:2rem;box-shadow:0 24px 70px -28px rgba(0,0,0,.7),0 1px 0 rgba(255,255,255,.03) inset}
+.login-card .mark{display:flex;align-items:center;gap:.55rem;font-family:var(--disp);font-weight:700;letter-spacing:.16em;font-size:.85rem;color:var(--steel);margin-bottom:1.4rem}
+.login-card .mark b{background:var(--gg);-webkit-background-clip:text;background-clip:text;color:transparent}
+.login-card .mark span{width:9px;height:9px;background:var(--gg);box-shadow:0 0 12px rgba(224,68,126,.6);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+.login-card h1{font-family:var(--disp);font-size:1.15rem;color:var(--steel);margin:0 0 .3rem;text-transform:uppercase;letter-spacing:.02em}
+.login-card p{margin:0 0 1.4rem;color:var(--muted);font-size:.82rem}
+.login-card label{display:block;font-family:var(--disp);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:.68rem;color:var(--steel);margin-bottom:.4rem}
+.login-card input{width:100%;border:1.5px solid var(--line);border-radius:var(--r-sm);padding:.7rem .85rem;font-size:.9rem;font-family:var(--text);color:var(--steel);background:var(--void2);margin-bottom:1rem;box-shadow:0 1px 3px rgba(0,0,0,.35) inset;transition:border-color .15s,box-shadow .15s}
+.login-card input:focus{outline:none;border-color:var(--rose);box-shadow:0 0 0 3px rgba(224,68,126,.14),0 1px 3px rgba(0,0,0,.35) inset}
+.login-card button{width:100%;font-family:var(--disp);font-weight:700;letter-spacing:.1em;font-size:.8rem;text-transform:uppercase;border:none;border-radius:99px;padding:.8rem;cursor:pointer;background:var(--gg);color:#2a0714;transition:filter .15s,box-shadow .15s,transform .1s}
+.login-card button:hover{filter:brightness(1.06);box-shadow:0 6px 26px rgba(224,68,126,.34)}
+.login-card button:active{transform:scale(.985)}
+#loginError{display:none;border:1px solid rgba(224,56,74,.4);background:rgba(224,56,74,.1);color:var(--red-b);border-radius:var(--r-sm);padding:.6rem .8rem;font-size:.8rem;margin-bottom:1rem}
+
+/* ---------- app shell ---------- */
+#app{display:none}
+#app.show{display:block}
+.topbar{position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:.8rem;padding:.8rem clamp(1rem,3vw,2rem);background:rgba(10,5,9,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.mark{display:flex;align-items:center;gap:.55rem;font-family:var(--disp);font-weight:700;letter-spacing:.16em;font-size:.88rem;color:var(--steel)}
+.mark b{background:var(--gg);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mark span{width:9px;height:9px;background:var(--gg);box-shadow:0 0 12px rgba(224,68,126,.6);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+.sp{flex:1}
+.navlink,.logout{font-family:var(--disp);font-weight:600;letter-spacing:.1em;font-size:.7rem;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:.45rem .85rem;border-radius:99px;cursor:pointer;background:transparent;transition:.15s;display:inline-flex;align-items:center;gap:.4em}
+.navlink:hover,.logout:hover{border-color:var(--rose);color:var(--rose);transform:translateY(-1px)}
+.navlink:active,.logout:active{transform:translateY(0) scale(.97)}
+
+main{max-width:1120px;margin:0 auto;padding:1.6rem 1.2rem 4rem}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.75rem;margin-bottom:1.6rem}
+.stat{border:1px solid var(--line);border-radius:var(--r-sm);background:linear-gradient(158deg,var(--panel),var(--panel2));padding:1rem 1.1rem;display:flex;align-items:center;gap:.8rem;transition:.15s;box-shadow:0 14px 40px -22px rgba(0,0,0,.6)}
+.stat:hover{border-color:var(--line3);transform:translateY(-2px)}
+.stat .ic{font-size:1.35rem;flex-shrink:0;opacity:.9;color:var(--rose)}
+.stat.anon .ic{color:var(--violet)}
+.stat.good .ic{color:var(--green)}
+.stat .label{font-family:var(--disp);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem}
+.stat .value{font-family:var(--disp);font-size:1.6rem;font-weight:700;color:var(--steel);line-height:1}
+
+.toolbar{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-bottom:1rem}
+.tabs{display:flex;gap:.4rem;flex-wrap:wrap}
+.tabs button{font-family:var(--disp);font-weight:600;letter-spacing:.06em;font-size:.72rem;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:.5rem .9rem;border-radius:99px;cursor:pointer;background:transparent;transition:.15s}
+.tabs button:hover{border-color:var(--rose);color:var(--rose)}
+.tabs button.active{background:var(--gg-soft);border-color:var(--line3);color:var(--rose)}
+.searchbox{flex:1;min-width:200px}
+.searchbox input{width:100%;border:1.5px solid var(--line);border-radius:99px;padding:.55rem 1rem;font-size:.85rem;color:var(--steel);background:var(--void2);box-shadow:0 1px 3px rgba(0,0,0,.35) inset}
+.searchbox input:focus{outline:none;border-color:var(--rose)}
+
+.list{display:flex;flex-direction:column;gap:.8rem}
+.item{border:1px solid var(--line);border-radius:var(--r-sm);background:linear-gradient(158deg,var(--panel),var(--panel2));padding:1.1rem 1.2rem;box-shadow:0 14px 40px -24px rgba(0,0,0,.6);transition:.15s}
+.item.is-flagged{border-left:3px solid var(--amber)}
+.item.is-banned{opacity:.65}
+.item.is-resolved{opacity:.7}
+.item-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.8rem;flex-wrap:wrap;margin-bottom:.6rem}
+.item-name{display:flex;align-items:center;gap:.5rem;font-family:var(--disp);font-weight:600;font-size:.95rem;color:var(--steel);flex-wrap:wrap}
+.avatar{width:26px;height:26px;border-radius:50%;background:var(--gg-soft);border:1px solid var(--line3);display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-size:.62rem;font-weight:700;color:var(--rose);flex-shrink:0}
+.avatar.anon{background:rgba(166,61,156,.16);border-color:rgba(166,61,156,.4);color:var(--violet)}
+.badge{display:inline-flex;align-items:center;gap:.3em;font-family:var(--disp);font-weight:600;letter-spacing:.05em;font-size:.62rem;text-transform:uppercase;padding:.28rem .6rem;border-radius:99px}
+.badge.cat{background:rgba(91,155,240,.12);color:var(--blue);border:1px solid rgba(91,155,240,.3)}
+.badge.anon{background:rgba(166,61,156,.14);color:var(--violet);border:1px solid rgba(166,61,156,.4)}
+.badge.flag{background:rgba(240,168,60,.14);color:var(--amber);border:1px solid rgba(240,168,60,.35)}
+.badge.banned{background:rgba(224,56,74,.16);color:var(--red-b);border:1px solid rgba(224,56,74,.45)}
+.badge.status{border:1px solid var(--line3)}
+.badge.st-pendente{background:rgba(240,168,60,.12);color:var(--amber)}
+.badge.st-analise{background:rgba(91,155,240,.12);color:var(--blue)}
+.badge.st-concluida{background:rgba(63,202,125,.12);color:var(--green)}
+.item-date{font-family:var(--mono);font-size:.7rem;color:var(--muted2);white-space:nowrap}
+.item-badges{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.7rem}
+.item-field{font-size:.8rem;color:var(--muted);margin-bottom:.3rem}
+.item-field b{color:var(--body);font-weight:500}
+.item-message{font-size:.9rem;color:var(--body);line-height:1.6;background:rgba(255,255,255,.014);border:1px solid var(--line2);border-radius:var(--r-sm);padding:.8rem .9rem;margin:.6rem 0}
+.item-meta{display:flex;gap:1rem;flex-wrap:wrap;font-family:var(--mono);font-size:.68rem;color:var(--muted2);margin-bottom:.7rem}
+.item-meta code{color:var(--muted)}
+
+.item-thumbs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.8rem}
+.item-thumbs img,.item-thumbs video{width:72px;height:72px;object-fit:cover;border-radius:8px;border:1px solid var(--line);cursor:zoom-in;transition:.15s}
+.item-thumbs img:hover,.item-thumbs video:hover{border-color:var(--rose);transform:scale(1.03)}
+.item-thumbs .thumb-wrap{position:relative;width:72px;height:72px}
+.item-thumbs .vid-badge{position:absolute;bottom:3px;left:3px;background:rgba(10,5,9,.75);border:1px solid var(--line3);color:var(--rose);font-family:var(--disp);font-size:.55rem;font-weight:600;text-transform:uppercase;padding:.1rem .35rem;border-radius:5px;pointer-events:none}
+
+.item-actions{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.item-actions select{font-family:var(--disp);font-weight:600;letter-spacing:.03em;font-size:.7rem;text-transform:uppercase;color:var(--steel);background:var(--void2);border:1px solid var(--line);border-radius:99px;padding:.42rem .8rem;cursor:pointer}
+.actbtn{font-family:var(--disp);font-weight:600;letter-spacing:.05em;font-size:.68rem;text-transform:uppercase;border:1px solid var(--line);background:transparent;color:var(--muted);padding:.42rem .75rem;border-radius:99px;cursor:pointer;display:inline-flex;align-items:center;gap:.35em;transition:.15s}
+.actbtn:hover:not(:disabled){border-color:var(--rose);color:var(--rose)}
+.actbtn:disabled{opacity:.4;cursor:not-allowed}
+.actbtn.danger:hover:not(:disabled){border-color:var(--red);color:var(--red-b)}
+
+.empty{text-align:center;padding:3rem 1rem;color:var(--muted);font-size:.9rem;border:1px dashed var(--line);border-radius:var(--r-sm)}
+
+/* ---------- bans ---------- */
+.ban-row{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.85rem 1rem;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--panel);margin-bottom:.6rem}
+.ban-row .reason{font-size:.75rem;color:var(--muted);margin-top:.2rem}
+.ban-row button{font-family:var(--disp);font-weight:600;font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;border:1px solid var(--line);background:transparent;color:var(--muted);padding:.4rem .8rem;border-radius:99px;cursor:pointer}
+.ban-row button:hover{border-color:var(--green);color:var(--green)}
+.section-title{font-family:var(--disp);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:.8rem;color:var(--steel);margin:2rem 0 .8rem}
+
+/* ---------- modais ---------- */
+.modalbg{position:fixed;inset:0;background:rgba(6,3,5,.72);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:200;padding:20px}
+.modalbg.show{display:flex}
+.modal{width:100%;max-width:420px;border:1px solid var(--line3);border-radius:var(--r);background:linear-gradient(158deg,var(--panel),var(--panel2));padding:1.6rem;box-shadow:0 30px 80px -20px rgba(0,0,0,.8)}
+.modal h3{font-family:var(--disp);font-size:1rem;color:var(--steel);margin:0 0 .5rem;text-transform:uppercase;letter-spacing:.02em}
+.modal p{font-size:.86rem;color:var(--muted);line-height:1.6;margin:0 0 1.3rem}
+.modal .row{display:flex;gap:.7rem;justify-content:flex-end}
+.modal button{font-family:var(--disp);font-weight:700;letter-spacing:.06em;font-size:.72rem;text-transform:uppercase;border-radius:99px;padding:.65rem 1.1rem;cursor:pointer;border:1px solid var(--line)}
+.modal .cancel{background:transparent;color:var(--muted)}
+.modal .cancel:hover{border-color:var(--muted);color:var(--steel)}
+.modal .confirm{background:var(--gg);color:#2a0714;border:none}
+.modal .confirm:hover{filter:brightness(1.06)}
+
+.imgmodalbg{position:fixed;inset:0;background:rgba(4,2,3,.92);display:none;align-items:center;justify-content:center;z-index:250;padding:20px}
+.imgmodalbg.show{display:flex}
+.imgmodalbg img{max-width:92vw;max-height:88vh;border-radius:10px;box-shadow:0 30px 90px rgba(0,0,0,.6)}
+.imgmodal-close{position:absolute;top:18px;right:22px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem}
+
+.settings-form label{display:block;font-family:var(--disp);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:.66rem;color:var(--steel);margin-bottom:.35rem}
+.settings-form input{width:100%;border:1.5px solid var(--line);border-radius:var(--r-sm);padding:.65rem .85rem;font-size:.85rem;color:var(--steel);background:var(--void2);margin-bottom:.9rem}
+.settings-form input:focus{outline:none;border-color:var(--rose)}
+#settingsError,#settingsOk{display:none;border-radius:var(--r-sm);padding:.6rem .8rem;font-size:.78rem;margin-bottom:.9rem}
+#settingsError{border:1px solid rgba(224,56,74,.4);background:rgba(224,56,74,.1);color:var(--red-b)}
+#settingsOk{border:1px solid rgba(63,202,125,.4);background:rgba(63,202,125,.1);color:var(--green)}
+
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--panel);border:1px solid var(--line3);color:var(--steel);padding:.75rem 1.2rem;border-radius:99px;font-size:.82rem;box-shadow:0 14px 40px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:.2s;z-index:300}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<svg style="position:absolute;width:0;height:0" aria-hidden="true">
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9L2.7 18a1.6 1.6 0 0 0 1.4 2.4h15.8a1.6 1.6 0 0 0 1.4-2.4L13.7 3.9a1.6 1.6 0 0 0-2.8 0z"/><line x1="12" y1="9.3" x2="12" y2="13.8"/><circle cx="12" cy="17" r="0.75" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="5.5" y1="5.5" x2="18.5" y2="18.5"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z"/></symbol>
+  <symbol id="i-smartphone" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14"/></symbol>
+  <symbol id="i-unlock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.4l2.6 2.6L16 9.4"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V6l7-3z"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h14l-3 4 3 4H5"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 0 1-4 0v-.09A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.55-1H3a2 2 0 0 1 0-4h.09A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.55V3a2 2 0 0 1 4 0v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9a1.7 1.7 0 0 0 1.55 1H21a2 2 0 0 1 0 4h-.09a1.7 1.7 0 0 0-1.51 1z"/></symbol>
+</svg>
+
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="mark"><span></span> <b>DISK DENÚNCIA</b> MULHER</div>
+    <h1>Painel de Acolhimento</h1>
+    <p>Acesso restrito ao Alto Comando, responsável por acolher e apurar cada relato com cuidado.</p>
+    <div id="loginError"></div>
+    <form id="loginForm">
+      <label for="loginEmail">Usuário</label>
+      <input type="text" id="loginEmail" autocomplete="username" />
+      <label for="loginPass">Senha</label>
+      <input type="password" id="loginPass" autocomplete="current-password" />
+      <button type="submit">Entrar</button>
+    </form>
+  </div>
+</div>
+
+<div id="app">
+  <header class="topbar">
+    <div class="mark"><span></span> <b>DISK DENÚNCIA</b> MULHER</div>
+    <div class="sp"></div>
+    <button class="navlink" id="settingsBtn"><svg class="icon"><use href="#i-gear"></use></svg> Senha</button>
+    <button class="logout" id="logoutBtn">Sair</button>
+  </header>
+
+  <main>
+    <div class="stats">
+      <div class="stat"><span class="ic"><svg class="icon" style="width:1.3em;height:1.3em"><use href="#i-shield"></use></svg></span><div><div class="label">Total</div><div class="value" id="statTotal">0</div></div></div>
+      <div class="stat"><span class="ic"><svg class="icon" style="width:1.3em;height:1.3em"><use href="#i-alert"></use></svg></span><div><div class="label">Em análise</div><div class="value" id="statAnalise">0</div></div></div>
+      <div class="stat anon"><span class="ic"><svg class="icon" style="width:1.3em;height:1.3em"><use href="#i-shield"></use></svg></span><div><div class="label">Anônimas</div><div class="value" id="statAnon">0</div></div></div>
+      <div class="stat"><span class="ic"><svg class="icon" style="width:1.3em;height:1.3em"><use href="#i-flag"></use></svg></span><div><div class="label">Pendentes</div><div class="value" id="statPend">0</div></div></div>
+      <div class="stat good"><span class="ic"><svg class="icon" style="width:1.3em;height:1.3em"><use href="#i-check"></use></svg></span><div><div class="label">Concluídas</div><div class="value" id="statOk">0</div></div></div>
+    </div>
+
+    <div class="toolbar">
+      <div class="tabs">
+        <button data-filter="all" class="active">Todas <span id="countAll"></span></button>
+        <button data-filter="pendente">Pendentes</button>
+        <button data-filter="analise">Em análise</button>
+        <button data-filter="concluida">Concluídas</button>
+        <button data-filter="anonima">Anônimas</button>
+        <button data-filter="flagged">Sinalizadas</button>
+      </div>
+      <div class="searchbox"><input type="text" id="searchInput" placeholder="🔍 Buscar por nome, denunciado, categoria ou relato..."></div>
+    </div>
+
+    <div class="list" id="listContainer"><div class="empty">Carregando denúncias...</div></div>
+
+    <div class="section-title">Dispositivos bloqueados</div>
+    <div id="bannedContainer"><div class="empty">Nenhum bloqueio ativo.</div></div>
+  </main>
+</div>
+
+<!-- modal de confirmação -->
+<div class="modalbg" id="modalBg">
+  <div class="modal">
+    <h3 id="modalTitle">Confirmar ação</h3>
+    <p id="modalText"></p>
+    <div class="row">
+      <button class="cancel" id="modalCancel">Cancelar</button>
+      <button class="confirm" id="modalConfirm">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- modal de imagem -->
+<div class="imgmodalbg" id="imgModalBg">
+  <div class="imgmodal-close" id="imgModalClose">✕</div>
+  <img id="imgModalImg" src="" alt="Print anexado">
+  <video id="imgModalVideo" src="" controls autoplay style="display:none;max-width:92vw;max-height:88vh;border-radius:10px;box-shadow:0 30px 90px rgba(0,0,0,.6)"></video>
+</div>
+
+<!-- modal de senha -->
+<div class="modalbg" id="settingsBg">
+  <div class="modal">
+    <h3>Alterar senha de acesso</h3>
+    <form id="settingsForm" class="settings-form">
+      <div id="settingsError"></div>
+      <div id="settingsOk"></div>
+      <label for="curPass">Senha atual</label>
+      <input type="password" id="curPass" required autocomplete="current-password" />
+      <label for="newPass">Nova senha</label>
+      <input type="password" id="newPass" required autocomplete="new-password" />
+      <label for="newPass2">Confirmar nova senha</label>
+      <input type="password" id="newPass2" required autocomplete="new-password" />
+      <div class="row" style="margin-top:.4rem">
+        <button type="button" class="cancel" id="settingsCancel">Cancelar</button>
+        <button type="submit" class="confirm">Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- ==================== FIREBASE ==================== -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyDVIKbfNVw4_iQGdiLrJhRfcPSVNjeZDLU",
+    authDomain: "comando-geral-98c87.firebaseapp.com",
+    databaseURL: "https://comando-geral-98c87-default-rtdb.firebaseio.com",
+    projectId: "comando-geral-98c87",
+    storageBucket: "comando-geral-98c87.firebasestorage.app",
+    messagingSenderId: "744810462465",
+    appId: "1:744810462465:web:075ce2c6fdad28e6b1ef00"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+</script>
+
+<script>
+  // ============================================================
+  // LOGIN DESTE PAINEL: igual ao Painel do Comando, mas com config
+  // e usuário/senha PRÓPRIOS (nó "denunciaMulherConfig/auth"), pra não
+  // misturar acesso com o painel da corporação.
+  //
+  // Login padrão na primeira vez que alguém abrir esta tela:
+  //   usuário: adm   |   senha: protegela123
+  // Troque depois pelo botão "Senha" no topo do painel.
+  //
+  // Assim como no painel original: sem Firebase Authentication, esta tela
+  // é uma trava de acesso ao painel, não uma trava criptográfica do banco
+  // em si, a proteção real dos dados depende das regras do Realtime
+  // Database do seu projeto Firebase.
+  // ============================================================
+  const DEFAULT_ADMIN_USER = "adm";
+  const DEFAULT_ADMIN_PASS = "protegela123";
+
+  function comTimeout(promise, ms = 10000){
+    return Promise.race([
+      promise,
+      new Promise((_, reject) => setTimeout(() => reject(new Error("TIMEOUT: sem resposta do Firebase em " + (ms/1000) + "s, verifique sua internet e se scripts de gstatic.com/firebaseio.com não estão bloqueados por extensão/firewall.")), ms))
+    ]);
+  }
+
+  async function sha256Hex(texto){
+    const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(texto));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+  }
+  function saltAleatorio(){
+    const arr = new Uint8Array(16);
+    crypto.getRandomValues(arr);
+    return Array.from(arr).map(b => b.toString(16).padStart(2, "0")).join("");
+  }
+  async function gerarHash(senha, salt){ return sha256Hex(salt + ":" + senha); }
+
+  async function garantirLoginPadrao(){
+    const snap = await comTimeout(db.ref("denunciaMulherConfig/auth").once("value"));
+    if(!snap.exists()){
+      const salt = saltAleatorio();
+      const hash = await gerarHash(DEFAULT_ADMIN_PASS, salt);
+      await comTimeout(db.ref("denunciaMulherConfig/auth").set({ user: DEFAULT_ADMIN_USER, salt, hash }));
+    }
+  }
+
+  const loginScreen = document.getElementById("loginScreen");
+  const appEl = document.getElementById("app");
+  const loginForm = document.getElementById("loginForm");
+  const loginError = document.getElementById("loginError");
+  const SESSION_KEY = "denunciaMulherAuth";
+  const SESSION_DIAS = 30;
+
+  // Sessão fica salva por 30 dias (localStorage sobrevive fechar o
+  // navegador, diferente de sessionStorage, que perdia o login a cada
+  // vez que a aba fechava). Só sai antes disso se: clicar em "Sair" ou
+  // trocar a senha (aí a sessão atual é invalidada por segurança).
+  function salvarSessao(){
+    const expiraEm = Date.now() + SESSION_DIAS * 24 * 60 * 60 * 1000;
+    localStorage.setItem(SESSION_KEY, JSON.stringify({ ok: true, expiraEm }));
+  }
+  function sessaoValida(){
+    try{
+      const raw = localStorage.getItem(SESSION_KEY);
+      if(!raw) return false;
+      const { ok, expiraEm } = JSON.parse(raw);
+      if(!ok || !expiraEm || Date.now() > expiraEm){ localStorage.removeItem(SESSION_KEY); return false; }
+      return true;
+    }catch(e){ localStorage.removeItem(SESSION_KEY); return false; }
+  }
+  function limparSessao(){ localStorage.removeItem(SESSION_KEY); }
+
+  function mostrarApp(){ loginScreen.style.display = "none"; appEl.classList.add("show"); startListening(); }
+  function mostrarLogin(){ loginScreen.style.display = "flex"; appEl.classList.remove("show"); }
+
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    loginError.style.display = "none";
+    const usuario = document.getElementById("loginEmail").value.trim().toLowerCase();
+    const senha = document.getElementById("loginPass").value;
+    if(!usuario || !senha){ loginError.textContent = "Preencha usuário e senha."; loginError.style.display = "block"; return; }
+    try{
+      await garantirLoginPadrao();
+      const snap = await comTimeout(db.ref("denunciaMulherConfig/auth").once("value"));
+      const cfg = snap.val();
+      const hashDigitado = cfg ? await gerarHash(senha, cfg.salt) : null;
+      if(!cfg || usuario !== (cfg.user || "").toLowerCase() || hashDigitado !== cfg.hash){
+        loginError.textContent = "Usuário ou senha incorretos.";
+        loginError.style.display = "block";
+        return;
+      }
+      salvarSessao();
+      mostrarApp();
+    }catch(err){
+      console.error(err);
+      const detalhe = err && err.message ? err.message : "";
+      loginError.textContent = "Não foi possível conectar ao banco agora. " + (detalhe.startsWith("TIMEOUT") ? detalhe : "Verifique sua conexão (ou as regras do Firebase) e tente de novo. Abra o Console do navegador (F12) para mais detalhes.");
+      loginError.style.display = "block";
+    }
+  });
+
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    limparSessao();
+    mostrarLogin();
+  });
+</script>
+
+<script>
+  // ============================================================
+  // ALTERAR SENHA DE ACESSO (dentro do próprio painel)
+  // ============================================================
+  const settingsBg = document.getElementById("settingsBg");
+  const settingsForm = document.getElementById("settingsForm");
+  const settingsError = document.getElementById("settingsError");
+  const settingsOk = document.getElementById("settingsOk");
+
+  function resetSettingsForm(){
+    settingsForm.reset();
+    settingsError.style.display = "none";
+    settingsOk.style.display = "none";
+  }
+
+  document.getElementById("settingsBtn").addEventListener("click", () => {
+    resetSettingsForm();
+    settingsBg.classList.add("show");
+  });
+  document.getElementById("settingsCancel").addEventListener("click", () => settingsBg.classList.remove("show"));
+
+  settingsForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    settingsError.style.display = "none";
+    settingsOk.style.display = "none";
+
+    const curPass = document.getElementById("curPass").value;
+    const newPass = document.getElementById("newPass").value;
+    const newPass2 = document.getElementById("newPass2").value;
+
+    if(newPass.length < 6){
+      settingsError.textContent = "A nova senha precisa ter pelo menos 6 caracteres.";
+      settingsError.style.display = "block";
+      return;
+    }
+    if(newPass !== newPass2){
+      settingsError.textContent = "As duas senhas novas não coincidem.";
+      settingsError.style.display = "block";
+      return;
+    }
+
+    try{
+      const snap = await comTimeout(db.ref("denunciaMulherConfig/auth").once("value"));
+      const cfg = snap.val();
+      if(!cfg){
+        settingsError.textContent = "Não foi possível carregar a configuração atual. Tente novamente.";
+        settingsError.style.display = "block";
+        return;
+      }
+      const hashAtual = await gerarHash(curPass, cfg.salt);
+      if(hashAtual !== cfg.hash){
+        settingsError.textContent = "Senha atual incorreta.";
+        settingsError.style.display = "block";
+        return;
+      }
+      const novoSalt = saltAleatorio();
+      const novoHash = await gerarHash(newPass, novoSalt);
+      await comTimeout(db.ref("denunciaMulherConfig/auth").set({ user: cfg.user, salt: novoSalt, hash: novoHash }));
+      settingsOk.innerHTML = '<svg class="icon"><use href="#i-check"></use></svg> Senha alterada com sucesso. Você vai precisar entrar de novo.';
+      settingsOk.style.display = "block";
+      settingsForm.reset();
+      toast("Senha alterada. Faça login novamente.");
+      // Por segurança, ao trocar a senha a sessão atual é encerrada na hora
+      // precisa entrar de novo com a senha nova.
+      setTimeout(() => { settingsBg.classList.remove("show"); limparSessao(); mostrarLogin(); }, 1400);
+    }catch(err){
+      console.error(err);
+      const detalhe = err && err.message ? err.message : "";
+      settingsError.textContent = detalhe.startsWith("TIMEOUT") ? detalhe : "Não foi possível alterar a senha agora. Tente novamente.";
+      settingsError.style.display = "block";
+    }
+  });
+</script>
+
+<script>
+  const toastEl = document.getElementById("toast");
+  function toast(msg){ toastEl.textContent = msg; toastEl.classList.add("show"); setTimeout(() => toastEl.classList.remove("show"), 2600); }
+
+  const modalBg = document.getElementById("modalBg");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalText = document.getElementById("modalText");
+  const modalConfirm = document.getElementById("modalConfirm");
+  const modalCancel = document.getElementById("modalCancel");
+  function confirmAction(title, text){
+    return new Promise((resolve) => {
+      modalTitle.textContent = title; modalText.textContent = text; modalBg.classList.add("show");
+      const cleanup = (r) => { modalBg.classList.remove("show"); modalConfirm.removeEventListener("click", onC); modalCancel.removeEventListener("click", onX); resolve(r); };
+      const onC = () => cleanup(true); const onX = () => cleanup(false);
+      modalConfirm.addEventListener("click", onC); modalCancel.addEventListener("click", onX);
+    });
+  }
+
+  const imgModalBg = document.getElementById("imgModalBg");
+  const imgModalImg = document.getElementById("imgModalImg");
+  const imgModalVideo = document.getElementById("imgModalVideo");
+  document.getElementById("imgModalClose").addEventListener("click", fecharModalMidia);
+  imgModalBg.addEventListener("click", e => { if(e.target === imgModalBg) fecharModalMidia(); });
+  function fecharModalMidia(){ imgModalBg.classList.remove("show"); imgModalVideo.pause(); imgModalVideo.src = ""; }
+  function abrirImagem(url, tipo){
+    if(tipo === "video"){
+      imgModalImg.style.display = "none";
+      imgModalVideo.style.display = "block";
+      imgModalVideo.src = url;
+    } else {
+      imgModalVideo.style.display = "none";
+      imgModalImg.style.display = "block";
+      imgModalImg.src = url;
+    }
+    imgModalBg.classList.add("show");
+  }
+  window.abrirImagem = abrirImagem;
+</script>
+
+<script>
+  const CATEGORIAS = {
+    violencia_rp: "Violência/agressão em RP",
+    assedio: "Assédio",
+    perseguicao: "Perseguição por colega de corporação",
+    ameaca: "Ameaças",
+    abuso_poder: "Abuso de poder (policial/liderança)",
+    exposicao: "Exposição / vazamento de prints",
+    discriminacao: "Discriminação",
+    // categorias antigas, mantidas por compatibilidade com denúncias já enviadas
+    violencia_domestica: "Violência doméstica",
+    outro: "Outro"
+  };
+  const STATUS_LABEL = { pendente: "Pendente", analise: "Em análise", concluida: "Concluída" };
+
+  let allDenuncias = [];
+  let allBans = [];
+  let currentFilter = "all";
+  let currentSearch = "";
+  let listeningStarted = false;
+
+  const ICO = {
+    alert: '<svg class="icon"><use href="#i-alert"></use></svg>',
+    ban: '<svg class="icon"><use href="#i-ban"></use></svg>',
+    globe: '<svg class="icon"><use href="#i-globe"></use></svg>',
+    smartphone: '<svg class="icon"><use href="#i-smartphone"></use></svg>',
+    trash: '<svg class="icon"><use href="#i-trash"></use></svg>',
+    unlock: '<svg class="icon"><use href="#i-unlock"></use></svg>'
+  };
+
+  function startListening(){
+    if(listeningStarted) return;
+    listeningStarted = true;
+
+    let respondeu = false;
+    setTimeout(() => {
+      if(!respondeu){
+        document.getElementById("listContainer").innerHTML = '<div class="empty">⏱ Sem resposta do banco de dados há 10s. Verifique sua internet, se alguma extensão/firewall não está bloqueando gstatic.com ou firebaseio.com, e recarregue a página.</div>';
+      }
+    }, 10000);
+
+    db.ref("denuncias_mulher").on("value", (snap) => {
+      respondeu = true;
+      const val = snap.val() || {};
+      allDenuncias = Object.keys(val).map(id => ({ id, ...val[id] })).sort((a,b) => (b.createdAt||0)-(a.createdAt||0));
+      renderStats(); renderList();
+    }, (err) => {
+      respondeu = true;
+      console.error(err);
+      document.getElementById("listContainer").innerHTML = '<div class="empty">Erro ao carregar denúncias: ' + escapeHtml(err && err.message ? err.message : String(err)) + ', verifique as regras do Realtime Database.</div>';
+    });
+
+    db.ref("denuncias_mulher_banned").on("value", (snap) => {
+      const val = snap.val() || {};
+      allBans = Object.keys(val).map(id => ({ id, ...val[id] })).sort((a,b) => (b.bannedAt||0)-(a.bannedAt||0));
+      renderStats(); renderBans();
+    }, (err) => console.error(err));
+  }
+
+  function fmtDate(ts){ if(!ts) return "agora mesmo"; return new Date(ts).toLocaleString("pt-BR"); }
+  function isBannedValue(v){ return allBans.some(b => b.value === v); }
+  function escapeHtml(str){
+    return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+  }
+  function iniciais(nome){
+    const partes = (nome||"").trim().split(/\s+/).filter(Boolean);
+    if(partes.length === 0) return "?";
+    if(partes.length === 1) return partes[0].slice(0,2).toUpperCase();
+    return (partes[0][0] + partes[partes.length-1][0]).toUpperCase();
+  }
+
+  function renderStats(){
+    const analiseCount = allDenuncias.filter(d => d.status === "analise").length;
+    const anonCount = allDenuncias.filter(d => d.anonima).length;
+    const pendCount = allDenuncias.filter(d => (d.status||"pendente") === "pendente").length;
+    const okCount = allDenuncias.filter(d => d.status === "concluida").length;
+    document.getElementById("statTotal").textContent = allDenuncias.length;
+    document.getElementById("statAnalise").textContent = analiseCount;
+    document.getElementById("statAnon").textContent = anonCount;
+    document.getElementById("statPend").textContent = pendCount;
+    document.getElementById("statOk").textContent = okCount;
+    document.getElementById("countAll").textContent = `(${allDenuncias.length})`;
+  }
+
+  function renderList(){
+    const container = document.getElementById("listContainer");
+    let items = allDenuncias;
+    if(currentFilter === "pendente") items = items.filter(d => (d.status||"pendente") === "pendente");
+    if(currentFilter === "analise") items = items.filter(d => d.status === "analise");
+    if(currentFilter === "concluida") items = items.filter(d => d.status === "concluida");
+    if(currentFilter === "anonima") items = items.filter(d => d.anonima);
+    if(currentFilter === "flagged") items = items.filter(d => d.hasFlaggedLanguage);
+    if(currentSearch){
+      const q = currentSearch.toLowerCase();
+      items = items.filter(d =>
+        (d.name||"").toLowerCase().includes(q) ||
+        (d.denunciado||"").toLowerCase().includes(q) ||
+        (CATEGORIAS[d.categoria]||"").toLowerCase().includes(q) ||
+        (d.message||"").toLowerCase().includes(q) ||
+        (d.local||"").toLowerCase().includes(q)
+      );
+    }
+    if(items.length === 0){ container.innerHTML = '<div class="empty">Nenhuma denúncia encontrada para este filtro.</div>'; return; }
+
+    container.innerHTML = items.map(d => {
+      const ipBanned = isBannedValue(d.ip);
+      const devBanned = isBannedValue(d.deviceId);
+      const isBanned = ipBanned || devBanned;
+      const nome = d.anonima ? "Denunciante anônima" : (d.name || "Sem nome");
+      const status = d.status || "pendente";
+      const anexos = Array.isArray(d.anexos) ? d.anexos : [];
+      return `
+      <div class="item ${d.hasFlaggedLanguage ? 'is-flagged' : ''} ${isBanned ? 'is-banned' : ''} ${status==='concluida' ? 'is-resolved' : ''}">
+        <div class="item-top">
+          <div class="item-name">
+            <span class="avatar ${d.anonima ? 'anon' : ''}">${d.anonima ? '?' : iniciais(nome)}</span>
+            ${escapeHtml(nome)}
+            ${isBanned ? `<span class="badge banned">${ICO.ban} Dispositivo banido</span>` : ''}
+          </div>
+          <div class="item-date">${fmtDate(d.createdAt)}</div>
+        </div>
+        <div class="item-badges">
+          <span class="badge cat">${escapeHtml(CATEGORIAS[d.categoria] || d.categoria || "-")}</span>
+          <span class="badge status st-${status}">${STATUS_LABEL[status]}</span>
+          ${d.anonima ? `<span class="badge anon">Anônima</span>` : ''}
+          ${d.hasFlaggedLanguage ? `<span class="badge flag">${ICO.alert} Linguagem sensível</span>` : ''}
+        </div>
+        ${d.denunciado ? `<div class="item-field"><b>Denunciado(a):</b> ${escapeHtml(d.denunciado)}</div>` : ''}
+        ${d.local ? `<div class="item-field"><b>Local/contexto:</b> ${escapeHtml(d.local)}</div>` : ''}
+        ${!d.anonima && d.contato ? `<div class="item-field"><b>Contato para retorno:</b> ${escapeHtml(d.contato)}</div>` : ''}
+        <div class="item-message">${escapeHtml(d.message || "")}</div>
+        ${anexos.length ? `<div class="item-thumbs">${anexos.map(a => {
+          // Compatibilidade: denúncias antigas salvaram os anexos como string (url pura).
+          const url = typeof a === "string" ? a : a.url;
+          const tipo = typeof a === "string" ? "imagem" : (a.tipo || "imagem");
+          return tipo === "video"
+            ? `<div class="thumb-wrap"><video src="${url}" muted onclick="abrirImagem('${url}','video')"></video><div class="vid-badge">▶ vídeo</div></div>`
+            : `<img src="${url}" alt="Print anexado" onclick="abrirImagem('${url}','imagem')">`;
+        }).join("")}</div>` : ''}
+        <div class="item-meta">
+          <span>${ICO.globe} IP: <code>${escapeHtml(d.ip || "-")}</code></span>
+          <span>${ICO.smartphone} Aparelho: <code>${escapeHtml((d.deviceId||"-").slice(0,18))}</code></span>
+        </div>
+        <div class="item-actions">
+          <select onchange="mudarStatus('${d.id}', this.value)">
+            <option value="pendente" ${status==='pendente'?'selected':''}>Pendente</option>
+            <option value="analise" ${status==='analise'?'selected':''}>Em análise</option>
+            <option value="concluida" ${status==='concluida'?'selected':''}>Concluída</option>
+          </select>
+          <button class="actbtn" onclick="banItem('${d.id}','ip')" ${!d.ip || d.ip==='desconhecido' || ipBanned ? 'disabled' : ''}>${ICO.globe} Banir IP</button>
+          <button class="actbtn" onclick="banItem('${d.id}','deviceId')" ${!d.deviceId || devBanned ? 'disabled' : ''}>${ICO.smartphone} Banir aparelho</button>
+          <button class="actbtn danger" onclick="deleteItem('${d.id}')">${ICO.trash} Excluir</button>
+        </div>
+      </div>`;
+    }).join("");
+  }
+
+  function renderBans(){
+    const container = document.getElementById("bannedContainer");
+    if(allBans.length === 0){ container.innerHTML = '<div class="empty">Nenhum bloqueio ativo.</div>'; return; }
+    container.innerHTML = allBans.map(b => `
+      <div class="ban-row">
+        <div class="ban-info">
+          <div><strong>${b.type === 'ip' ? ICO.globe + ' IP' : ICO.smartphone + ' Aparelho'}:</strong> <code>${escapeHtml(b.value)}</code></div>
+          <div class="reason">Bloqueado em ${fmtDate(b.bannedAt)}${b.reason ? ' - ' + escapeHtml(b.reason) : ''}</div>
+        </div>
+        <button onclick="unbanItem('${b.id}')">${ICO.unlock} Desbloquear</button>
+      </div>
+    `).join("");
+  }
+
+  async function mudarStatus(id, novoStatus){
+    try{
+      await db.ref("denuncias_mulher").child(id).update({ status: novoStatus });
+      toast(`Status atualizado para "${STATUS_LABEL[novoStatus]}".`);
+    }catch(err){ console.error(err); toast("Erro ao atualizar status."); }
+  }
+  window.mudarStatus = mudarStatus;
+
+  async function banItem(denunciaId, field){
+    const d = allDenuncias.find(x => x.id === denunciaId);
+    if(!d) return;
+    const value = d[field];
+    if(!value) return;
+    const label = field === "ip" ? "IP" : "aparelho";
+    const ok = await confirmAction(`Banir ${label}`, `Tem certeza que deseja bloquear este ${label} (${value})? Ele não poderá mais enviar denúncias por este canal.`);
+    if(!ok) return;
+    try{
+      await db.ref("denuncias_mulher_banned").push({
+        type: field === "ip" ? "ip" : "device", value,
+        reason: `Denúncia de "${d.anonima ? 'anônima' : (d.name || 'sem nome')}"${d.hasFlaggedLanguage ? ' (linguagem sensível)' : ''}`,
+        bannedAt: firebase.database.ServerValue.TIMESTAMP
+      });
+      toast(`${label === "IP" ? "IP" : "Aparelho"} bloqueado com sucesso.`);
+    }catch(err){ console.error(err); toast("Erro ao bloquear. Tente novamente."); }
+  }
+  window.banItem = banItem;
+
+  async function unbanItem(banId){
+    const ok = await confirmAction("Desbloquear", "Deseja remover este bloqueio? A pessoa poderá enviar denúncias novamente por este canal.");
+    if(!ok) return;
+    try{ await db.ref("denuncias_mulher_banned").child(banId).remove(); toast("Bloqueio removido."); }
+    catch(err){ console.error(err); toast("Erro ao desbloquear."); }
+  }
+  window.unbanItem = unbanItem;
+
+  async function deleteItem(denunciaId){
+    const ok = await confirmAction("Excluir denúncia", "Esta ação não pode ser desfeita. O registro e os prints anexados serão removidos. Deseja continuar?");
+    if(!ok) return;
+    try{ await db.ref("denuncias_mulher").child(denunciaId).remove(); toast("Denúncia excluída."); }
+    catch(err){ console.error(err); toast("Erro ao excluir."); }
+  }
+  window.deleteItem = deleteItem;
+
+  document.querySelectorAll(".tabs button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".tabs button").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentFilter = btn.dataset.filter;
+      renderList();
+    });
+  });
+  document.getElementById("searchInput").addEventListener("input", (e) => { currentSearch = e.target.value.trim(); renderList(); });
+</script>
+
+<script>
+  if(sessaoValida()){ mostrarApp(); } else { mostrarLogin(); }
+</script>
+</body>
+</html>
