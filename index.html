@@ -486,7 +486,7 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
     thumbsEl.innerHTML = arquivosSelecionados.map((a,i) => `
       <div class="thumb" data-i="${i}">
         ${a.tipo === "video"
-          ? `<video src="${a.previewUrl}" muted></video><div class="vid-badge">▶ vídeo</div>`
+          ? `<video src="${a.previewUrl}#t=0.3" muted preload="metadata" playsinline onloadeddata="this.currentTime=0.3" onerror="this.closest('.thumb').querySelector('.vid-badge').textContent='⚠️ não carregou'"></video><div class="vid-badge">▶ vídeo</div>`
           : `<img src="${a.previewUrl}" alt="Print ${i+1}">`}
         ${a.progresso != null ? `<div class="prog"><span class="spinner"></span><span class="pct">${a.progresso}%</span></div>` : ""}
         ${a.erro ? `<div class="fail" title="${(a.erroMsg||'').replace(/"/g,'&quot;')}">Falhou: ${(a.erroMsg||'erro desconhecido').slice(0,40)}</div>` : ""}
