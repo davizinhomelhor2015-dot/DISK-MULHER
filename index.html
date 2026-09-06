@@ -261,7 +261,7 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
         <div class="dropzone" id="dropzone">
           <div class="ic"><svg class="icon" style="width:1.6rem;height:1.6rem"><use href="#i-image"></use></svg></div>
           <strong>Clique ou arraste os arquivos aqui</strong>
-          <span>Imagens (JPG, PNG, WEBP) ou vídeos (MP4, WEBM, MOV), até 5 arquivos, vídeos de até 2GB cada</span>
+          <span>Imagens (JPG, PNG, WEBP) ou vídeos (MP4, WEBM, MOV), até 5 arquivos, vídeos de até 190MB cada — sem custo</span>
         </div>
         <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp,video/mp4,video/webm,video/quicktime" multiple />
         <div class="thumbs" id="thumbs"></div>
@@ -395,7 +395,7 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
       if(banner){
         const detalhe = (err && err.code ? `[${err.code}] ` : "") + (err && err.message ? err.message : String(err));
         banner.style.display = "block";
-        banner.innerHTML = `⚠️ O armazenamento de arquivos está com problema neste servidor (${escapeHtmlLocal(detalhe)}). Vídeos e prints grandes podem não ser enviados agora — mas não se preocupe, o texto da sua denúncia é salvo de qualquer jeito. Arquivos pequenos ainda têm uma chance de ir por um método alternativo.`;
+        banner.innerHTML = `ℹ️ Este site está usando um método alternativo e gratuito pra guardar os arquivos anexados (o armazenamento principal não está disponível: ${escapeHtmlLocal(detalhe)}). Prints e vídeos de até 190MB continuam funcionando normalmente por esse método. Só arquivos maiores que isso não conseguem ser enviados por enquanto — mas o texto da sua denúncia é salvo sempre, mesmo sem anexo.`;
       }
     }
   }
@@ -426,7 +426,7 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
   // Vídeos vão direto (não dá pra comprimir sem bibliotecas pesadas), só
   // limitamos o tamanho máximo pra não travar o envio em conexões ruins.
   const MAX_FILES = 5;
-  const MAX_VIDEO_MB = 2048;
+  const MAX_VIDEO_MB = 190;
   let arquivosSelecionados = []; // [{file, previewUrl, tipo:'imagem'|'video'}]
 
   function comprimirImagem(file, maxLado = 1440, qualidade = 0.72){
@@ -472,7 +472,7 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
       }
       const isVideo = f.type.startsWith("video/");
       if(isVideo && f.size > MAX_VIDEO_MB * 1024 * 1024){
-        uploadHint.textContent = `O vídeo "${f.name}" passa de ${(MAX_VIDEO_MB/1024).toFixed(1)}GB e não foi adicionado.`;
+        uploadHint.textContent = `O vídeo "${f.name}" passa de ${MAX_VIDEO_MB}MB e não foi adicionado.`;
         continue;
       }
       arquivosSelecionados.push({ file: f, previewUrl: URL.createObjectURL(f), tipo: isVideo ? "video" : "imagem" });
@@ -499,11 +499,15 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
   // Sobe um arquivo com acompanhamento de progresso real (não só um timeout
   // cego) — assim dá pra ver que está subindo de verdade, mesmo em conexões
   // lentas com vídeo grande, em vez de parecer que travou.
-  // Limite pro plano B (salvar direto no Realtime Database em base64).
-  // Bem menor que o do Storage, porque banco de dados não foi feito pra
-  // guardar arquivo grande — mas garante que pelo menos prints e vídeos
-  // curtos cheguem até o Alto Comando mesmo se o Storage estiver quebrado.
+  // Limite pro plano B "rápido" (salvar direto no Realtime Database em
+  // base64). Bem menor que o de vídeo grande, porque banco de dados não foi
+  // feito pra guardar arquivo grande.
   const LIMITE_FALLBACK_MB = 6;
+  // Limite do plano C: hospedagem gratuita externa (catbox.moe), usada só
+  // quando o arquivo é grande demais pro banco de dados. Não exige cartão,
+  // login ou plano pago — é a alternativa real enquanto o Firebase Storage
+  // não estiver disponível (precisa do plano Blaze, que é pago).
+  const LIMITE_CATBOX_MB = 190;
 
   function arquivoParaBase64(blob){
     return new Promise((resolve, reject) => {
@@ -514,13 +518,33 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
     });
   }
 
-  // Salva o arquivo direto no Realtime Database (sem Storage), como plano B.
-  async function subirViaFallback(blob, tipo, mimeType){
-    if(blob.size > LIMITE_FALLBACK_MB * 1024 * 1024){
-      throw new Error(`O armazenamento de arquivos está indisponível no momento, e este arquivo passa do limite de ${LIMITE_FALLBACK_MB}MB do envio alternativo. Tente um arquivo menor, ou avise o Alto Comando sobre o problema técnico do site.`);
+  // Sobe pro catbox.moe (hospedagem de arquivo gratuita, sem precisar de
+  // conta nem chave de API) e devolve o link direto do arquivo.
+  async function subirViaCatbox(blob, nomeArquivo){
+    const form = new FormData();
+    form.append("reqtype", "fileupload");
+    form.append("fileToUpload", blob, nomeArquivo);
+    const res = await comTimeout(fetch("https://catbox.moe/user/api.php", { method: "POST", body: form }), 300000);
+    if(!res.ok) throw new Error(`catbox.moe respondeu com erro ${res.status}`);
+    const url = (await res.text()).trim();
+    if(!url.startsWith("http")) throw new Error("catbox.moe não devolveu um link válido: " + url.slice(0,120));
+    return url;
+  }
+
+  // Plano B (quando o Storage não está disponível):
+  //  - arquivo pequeno (até 6MB) → salva direto no banco de dados
+  //  - arquivo maior (até 190MB) → sobe pro catbox.moe (grátis, sem cadastro)
+  //  - maior que isso → não tem como enviar de graça, avisa o motivo
+  async function subirViaFallback(blob, tipo, nomeArquivo){
+    if(blob.size <= LIMITE_FALLBACK_MB * 1024 * 1024){
+      const dataUrl = await arquivoParaBase64(blob);
+      return { data: dataUrl, tipo, inline: true };
     }
-    const dataUrl = await arquivoParaBase64(blob);
-    return { data: dataUrl, tipo, inline: true };
+    if(blob.size <= LIMITE_CATBOX_MB * 1024 * 1024){
+      const url = await subirViaCatbox(blob, nomeArquivo);
+      return { url, tipo, fonte: "catbox" };
+    }
+    throw new Error(`Este arquivo passa de ${LIMITE_CATBOX_MB}MB, que é o maior tamanho possível pelos métodos gratuitos disponíveis agora. Tente um arquivo menor, ou avise o Alto Comando pra ativar o Firebase Storage (plano pago) se precisar de arquivos maiores no futuro.`);
   }
 
   function subirArquivo(file, tipo, denunciaId, i){
@@ -542,7 +566,7 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
           try{
             arquivosSelecionados[i].progresso = 50;
             renderThumbs();
-            const anexo = await subirViaFallback(blob, tipo, file.type);
+            const anexo = await subirViaFallback(blob, tipo, nomeArquivo);
             arquivosSelecionados[i].progresso = 100;
             resolve(anexo);
           }catch(err){ reject(err); }
@@ -578,7 +602,7 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
           try{
             arquivosSelecionados[i].progresso = 50;
             renderThumbs();
-            const anexo = await subirViaFallback(blob, tipo, file.type);
+            const anexo = await subirViaFallback(blob, tipo, nomeArquivo);
             arquivosSelecionados[i].progresso = 100;
             resolve(anexo);
           }catch(fallbackErr){
@@ -636,23 +660,37 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
   document.getElementById("testStorageBtn").addEventListener("click", async () => {
     const resultEl = document.getElementById("testStorageResult");
     resultEl.style.color = "var(--muted)";
-    resultEl.textContent = "Testando... (isso deve levar só alguns segundos)";
-    const inicio = Date.now();
+    resultEl.textContent = "Testando os dois métodos de envio... (alguns segundos)";
+
+    let statusStorage = "";
     try{
+      const inicio = Date.now();
       const ref = storage.ref(`_teste_conexao/teste-${Date.now()}.txt`);
       const blob = new Blob(["teste de conexao"], { type: "text/plain" });
       await comTimeout(ref.put(blob), 20000);
       await ref.getDownloadURL();
-      await ref.delete().catch(()=>{}); // limpeza, não crítico se falhar
+      await ref.delete().catch(()=>{});
       const segundos = ((Date.now() - inicio) / 1000).toFixed(1);
-      resultEl.style.color = "var(--green)";
-      resultEl.innerHTML = `${ICO.check} Storage funcionando normalmente (respondeu em ${segundos}s). Se o vídeo mesmo assim não sobe, o problema é o tamanho do arquivo ou a sua conexão, não a configuração do Firebase.`;
+      statusStorage = `${ICO.check} Firebase Storage: funcionando (respondeu em ${segundos}s).`;
     }catch(err){
-      console.error("Teste de Storage falhou:", err);
-      resultEl.style.color = "var(--red-b)";
       const detalhe = (err && err.code ? `[${err.code}] ` : "") + (err && err.message ? err.message : String(err));
-      resultEl.innerHTML = `${ICO.ban} Storage NÃO está respondendo. Erro técnico: <code style="font-family:var(--mono);font-size:.85em">${escapeHtmlLocal(detalhe)}</code><br>Isso confirma que é um problema de configuração no Firebase Console (Storage não habilitado, regras bloqueando escrita, ou plano Spark sem Storage liberado) — não é sua internet.`;
+      statusStorage = `${ICO.ban} Firebase Storage: indisponível (${escapeHtmlLocal(detalhe)}). Normalmente é o plano Blaze não ativado.`;
     }
+
+    let statusCatbox = "";
+    try{
+      const inicio2 = Date.now();
+      const blob2 = new Blob(["teste de conexao"], { type: "text/plain" });
+      await subirViaCatbox(blob2, "teste-conexao.txt");
+      const segundos2 = ((Date.now() - inicio2) / 1000).toFixed(1);
+      statusCatbox = `${ICO.check} Método gratuito (catbox.moe): funcionando (respondeu em ${segundos2}s). Vídeos de até ${LIMITE_CATBOX_MB}MB devem funcionar normalmente.`;
+    }catch(err){
+      const detalhe2 = (err && err.message) ? err.message : String(err);
+      statusCatbox = `${ICO.ban} Método gratuito (catbox.moe): indisponível agora (${escapeHtmlLocal(detalhe2)}). Só arquivos de até ${LIMITE_FALLBACK_MB}MB conseguem ser enviados nesse caso.`;
+    }
+
+    resultEl.style.color = "var(--body)";
+    resultEl.innerHTML = statusStorage + "<br>" + statusCatbox;
   });
 </script>
 
