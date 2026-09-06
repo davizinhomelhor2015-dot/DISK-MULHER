@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Disk Denúncia Mulher · One State</title>
+<meta name="theme-color" content="#0a0509">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Canal de denúncia para mulheres de One State. Seja ouvida, com ou sem se identificar.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ffb3d1'/%3E%3Cstop offset='46%25' stop-color='%23e0447e'/%3E%3Cstop offset='100%25' stop-color='%238a1f52'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' fill='%230a0509'/%3E%3Cpath d='M16 5 L27 16 L16 27 L5 16 Z' fill='url(%23g)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#0a0509; --void2:#120a10; --panel:#1a0f17; --panel2:#130b11;
+  --line:rgba(224,68,126,.18); --line2:rgba(230,230,235,.07); --line3:rgba(224,68,126,.36);
+  --rose:#f193b8; --rose-d:#e0447e; --violet:#a63d9c;
+  --red:#e0384a; --red-b:#ff6b76;
+  --green:#3fca7d; --amber:#f0a83c;
+  --steel:#f3e9ee; --body:#c2b2bb; --muted:#8f7e88; --muted2:#5c4e56;
+  --r:16px; --r-sm:10px; --maxw:660px;
+  --disp:'Oswald',system-ui,sans-serif; --text:'Barlow',system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
+  --gg:linear-gradient(135deg,#ffb3d1 0%,#e0447e 46%,#8a1f52 100%);
+  --gg-soft:linear-gradient(135deg,rgba(255,179,209,.16),rgba(138,31,82,.07));
+}
+*{box-sizing:border-box}
+html{scrollbar-color:var(--rose-d) var(--void2)}
+body{margin:0;background:var(--void);color:var(--body);font-family:var(--text);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;
+  background-image:
+    radial-gradient(1000px 560px at 82% -10%,rgba(224,68,126,.09),transparent 60%),
+    radial-gradient(760px 520px at -6% 8%,rgba(166,61,156,.05),transparent 55%),
+    linear-gradient(rgba(224,68,126,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(224,68,126,.045) 1px,transparent 1px);
+  background-size:auto,auto,44px 44px,44px 44px;
+  background-attachment:fixed}
+a{color:inherit;text-decoration:none}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:var(--void2)}
+::-webkit-scrollbar-thumb{background:var(--rose-d);border-radius:99px;border:2px solid var(--void2)}
+:focus-visible{outline:2px solid var(--rose);outline-offset:2px}
+.icon{width:1em;height:1em;display:inline-block;vertical-align:-0.16em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.icon.filled{fill:currentColor;stroke:none}
+@keyframes riseIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.hero{animation:riseIn .5s ease both}
+.card{animation:riseIn .5s .08s ease both}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.topbar{position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:.8rem;padding:.7rem clamp(1rem,3vw,2rem);background:rgba(10,5,9,.84);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.mark{display:flex;align-items:center;gap:.55rem;font-family:var(--disp);font-weight:700;letter-spacing:.16em;font-size:.92rem;color:var(--steel)}
+.mark b{background:var(--gg);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mark span{width:9px;height:9px;background:var(--gg);box-shadow:0 0 12px rgba(224,68,126,.6);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+.sp{flex:1}
+.emerg{font-family:var(--disp);font-weight:600;letter-spacing:.08em;font-size:.66rem;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:.4rem .7rem;border-radius:99px}
+.emerg b{color:var(--rose)}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:clamp(1.6rem,4vw,3rem) 1.2rem 3rem}
+.hero{text-align:center;margin-bottom:1.8rem}
+.hero .badge{display:inline-flex;align-items:center;gap:.45rem;font-family:var(--disp);font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:.62rem;color:var(--rose);border:1px solid var(--line3);padding:.32rem .75rem;border-radius:99px;background:var(--gg-soft);margin-bottom:1rem}
+.hero .badge::before{content:"◆";font-size:.55rem}
+.hero h1{font-family:var(--disp);font-weight:700;text-transform:uppercase;letter-spacing:.01em;font-size:clamp(1.7rem,5vw,2.5rem);color:var(--steel);margin:0 0 .6rem}
+.hero p{margin:0;color:var(--muted);font-size:.95rem;max-width:50ch;margin:0 auto}
+
+.card{position:relative;border:1px solid var(--line);border-radius:var(--r);background:linear-gradient(158deg,var(--panel),var(--panel2));padding:clamp(1.4rem,4vw,2rem);box-shadow:0 24px 70px -28px rgba(0,0,0,.7),0 1px 0 rgba(255,255,255,.03) inset;margin-bottom:1rem}
+.card .corner{position:absolute;top:9px;right:11px;width:14px;height:14px;border-top:2px solid var(--line3);border-right:2px solid var(--line3)}
+.card .corner2{position:absolute;bottom:9px;left:11px;width:14px;height:14px;border-bottom:2px solid var(--line3);border-left:2px solid var(--line3)}
+
+.rules{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.6rem}
+@media(max-width:520px){.rules{grid-template-columns:1fr}}
+.rules div{position:relative;padding:.6rem .8rem .6rem 1.9rem;border:1px solid var(--line2);border-radius:var(--r-sm);background:rgba(255,255,255,.014);font-size:.8rem;color:var(--body);line-height:1.45}
+.rules div::before{content:"◆";position:absolute;left:.75rem;top:.66rem;color:var(--rose);font-size:.55rem}
+
+/* ---------- toggle anônimo ---------- */
+.anon-box{display:flex;align-items:flex-start;gap:.9rem;padding:1rem 1.15rem;border:1px solid var(--line3);border-radius:var(--r-sm);background:var(--gg-soft);margin-bottom:1.5rem;cursor:pointer}
+.anon-box:hover{border-color:var(--rose)}
+.switch{position:relative;width:44px;height:25px;flex-shrink:0;margin-top:.1rem}
+.switch input{opacity:0;width:0;height:0}
+.slider{position:absolute;inset:0;background:var(--void2);border:1.5px solid var(--line);border-radius:99px;transition:.2s}
+.slider::before{content:"";position:absolute;width:18px;height:18px;left:2px;top:2px;background:var(--muted);border-radius:50%;transition:.2s}
+.switch input:checked + .slider{background:rgba(224,68,126,.25);border-color:var(--rose)}
+.switch input:checked + .slider::before{transform:translateX(19px);background:var(--rose)}
+.anon-txt strong{display:block;font-family:var(--disp);font-weight:600;letter-spacing:.04em;font-size:.9rem;color:var(--steel);margin-bottom:.2rem}
+.anon-txt span{font-size:.8rem;color:var(--muted);line-height:1.5}
+
+label{display:block;font-family:var(--disp);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:.72rem;color:var(--steel);margin-bottom:.5rem}
+label .opt{color:var(--muted2);text-transform:none;letter-spacing:0;font-weight:400;font-size:.9em}
+.field{margin-bottom:1.3rem}
+.hint{font-size:.76rem;color:var(--muted2);margin-top:.4rem;line-height:1.5}
+input[type=text],textarea,select{
+  width:100%;border:1.5px solid var(--line);border-radius:var(--r-sm);padding:.75rem .9rem;
+  font-size:.95rem;font-family:var(--text);color:var(--steel);background:var(--void2);
+  box-shadow:0 1px 3px rgba(0,0,0,.35) inset;
+  transition:border-color .15s, box-shadow .15s;
+}
+select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238f7e88' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .8rem center;background-size:18px;padding-right:2.4rem}
+input[type=text]:focus,textarea:focus,select:focus{outline:none;border-color:var(--rose);box-shadow:0 0 0 3px rgba(224,68,126,.14),0 1px 3px rgba(0,0,0,.35) inset}
+textarea{min-height:150px;resize:vertical;line-height:1.55}
+.charcount{text-align:right;font-family:var(--mono);font-size:.68rem;color:var(--muted2);margin-top:.35rem}
+.charcount.near{color:var(--amber)}
+.charcount.full{color:var(--red-b)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+
+.callout{display:none;gap:.7rem;align-items:flex-start;margin-top:.7rem;padding:.85rem 1rem;border:1px solid rgba(240,168,60,.4);border-left:3px solid var(--amber);border-radius:var(--r-sm);background:rgba(240,168,60,.08);font-size:.82rem;color:#ffdc8a;line-height:1.5}
+.callout.show{display:flex}
+.callout.blocking{border-color:rgba(224,56,74,.4);border-left-color:var(--red);background:rgba(224,56,74,.08);color:var(--red-b)}
+.callout .ic{flex-shrink:0}
+.blockbox{display:none;gap:.7rem;align-items:flex-start;margin-bottom:1.4rem;padding:1rem 1.15rem;border:1px solid rgba(224,56,74,.4);border-left:3px solid var(--red);border-radius:var(--r-sm);background:linear-gradient(120deg,rgba(224,56,74,.12),transparent 70%);font-size:.88rem;color:var(--red-b);line-height:1.5}
+.blockbox.show{display:flex}
+
+/* ---------- upload de prints ---------- */
+.dropzone{border:1.5px dashed var(--line3);border-radius:var(--r-sm);padding:1.4rem 1rem;text-align:center;cursor:pointer;transition:.15s;background:rgba(224,68,126,.03)}
+.dropzone:hover,.dropzone.drag{border-color:var(--rose);background:rgba(224,68,126,.07)}
+.dropzone .ic{font-size:1.6rem;color:var(--rose);margin-bottom:.4rem}
+.dropzone strong{display:block;font-family:var(--disp);font-size:.86rem;color:var(--steel);margin-bottom:.2rem}
+.dropzone span{font-size:.76rem;color:var(--muted)}
+#fileInput{display:none}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:.6rem;margin-top:.9rem}
+.thumb{position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--line);aspect-ratio:1;background:var(--void2)}
+.thumb img,.thumb video{width:100%;height:100%;object-fit:cover;display:block}
+.thumb .vid-badge{position:absolute;bottom:4px;left:4px;background:rgba(10,5,9,.75);border:1px solid var(--line3);color:var(--rose);font-family:var(--disp);font-size:.6rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:.15rem .4rem;border-radius:6px;display:flex;align-items:center;gap:.25em}
+.thumb .rm{position:absolute;top:4px;right:4px;width:22px;height:22px;border-radius:50%;background:rgba(10,5,9,.82);border:1px solid var(--line3);color:var(--rose);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.8rem;line-height:1}
+.thumb .rm:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.thumb .prog{position:absolute;inset:0;background:rgba(10,5,9,.6);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.3rem}
+.thumb .prog .spinner{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.25);border-top-color:var(--rose);animation:spin .7s linear infinite}
+.thumb .prog .pct{font-family:var(--mono);font-size:.62rem;color:#fff}
+.thumb .fail{position:absolute;inset:0;background:rgba(224,56,74,.55);display:flex;align-items:center;justify-content:center;text-align:center;padding:.3rem;font-size:.6rem;color:#fff;font-family:var(--disp);font-weight:600;line-height:1.3}
+
+.btn{font-family:var(--disp);font-weight:700;letter-spacing:.1em;font-size:.82rem;text-transform:uppercase;border:none;border-radius:99px;padding:.85rem 1.2rem;cursor:pointer;width:100%;
+  background:var(--gg);color:#2a0714;box-shadow:0 4px 20px rgba(224,68,126,.28);transition:.18s;
+  display:flex;align-items:center;justify-content:center;gap:.5rem}
+.btn:hover{filter:brightness(1.06);box-shadow:0 6px 26px rgba(224,68,126,.36)}
+.btn:active{transform:scale(.985)}
+.btn:disabled{background:#3a3a3f;color:#7f838d;box-shadow:none;cursor:not-allowed;transform:none}
+.spinner{width:14px;height:14px;border-radius:50%;border:2px solid rgba(42,7,20,.35);border-top-color:#2a0714;animation:spin .7s linear infinite}
+
+.statusmsg{display:none;gap:.6rem;align-items:flex-start;margin-top:1rem;padding:.85rem 1rem;border-radius:var(--r-sm);font-size:.85rem;line-height:1.5}
+.statusmsg.show{display:flex}
+.statusmsg.ok{border:1px solid rgba(63,202,125,.4);background:rgba(63,202,125,.1);color:var(--green)}
+.statusmsg.err{border:1px solid rgba(224,56,74,.4);background:rgba(224,56,74,.1);color:var(--red-b)}
+
+.foot{text-align:center;margin-top:1.6rem;font-family:var(--mono);font-size:.68rem;color:var(--muted2);line-height:1.8}
+.foot .real{margin-top:.6rem;color:var(--muted);font-family:var(--text);font-size:.74rem}
+.foot .real b{color:var(--rose)}
+</style>
+</head>
+<body>
+<svg style="position:absolute;width:0;height:0" aria-hidden="true">
+  <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="5.5" y1="5.5" x2="18.5" y2="18.5"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9L2.7 18a1.6 1.6 0 0 0 1.4 2.4h15.8a1.6 1.6 0 0 0 1.4-2.4L13.7 3.9a1.6 1.6 0 0 0-2.8 0z"/><line x1="12" y1="9.3" x2="12" y2="13.8"/><circle cx="12" cy="17" r="0.75" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.4l2.6 2.6L16 9.4"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V6l7-3z"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="9.5" r="1.5" fill="currentColor" stroke="none"/><path d="M21 15l-5-5-9 9"/></symbol>
+</svg>
+<header class="topbar">
+  <div class="mark"><span></span> <b>DISK DENÚNCIA</b> MULHER</div>
+  <div class="sp"></div>
+  <div class="emerg">Canal interno · Servidor <b>One State</b></div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <span class="badge"><svg class="icon"><use href="#i-shield"></use></svg> Corporação Policial · One State</span>
+    <h1>Você não está sozinha</h1>
+    <p>Um espaço para relatar o que você viveu dentro da corporação: violência, assédio, perseguição ou abuso de poder por parte de policiais ou da liderança de One State. Do seu jeito, no seu tempo.</p>
+  </div>
+
+  <div class="card" style="padding:clamp(1.2rem,3.4vw,1.7rem)">
+    <div class="corner"></div>
+    <div class="corner2"></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;text-align:center">
+      <div>
+        <div style="font-family:var(--disp);font-size:1.3rem;color:var(--rose);margin-bottom:.2rem">①</div>
+        <div style="font-family:var(--disp);font-weight:600;font-size:.8rem;color:var(--steel);text-transform:uppercase;letter-spacing:.04em;margin-bottom:.3rem">Você conta</div>
+        <div style="font-size:.78rem;color:var(--muted);line-height:1.5">Do jeito que conseguir. Com ou sem se identificar.</div>
+      </div>
+      <div>
+        <div style="font-family:var(--disp);font-size:1.3rem;color:var(--rose);margin-bottom:.2rem">②</div>
+        <div style="font-family:var(--disp);font-weight:600;font-size:.8rem;color:var(--steel);text-transform:uppercase;letter-spacing:.04em;margin-bottom:.3rem">Nós lemos com cuidado</div>
+        <div style="font-size:.78rem;color:var(--muted);line-height:1.5">O Alto Comando analisa cada relato em sigilo.</div>
+      </div>
+      <div>
+        <div style="font-family:var(--disp);font-size:1.3rem;color:var(--rose);margin-bottom:.2rem">③</div>
+        <div style="font-family:var(--disp);font-weight:600;font-size:.8rem;color:var(--steel);text-transform:uppercase;letter-spacing:.04em;margin-bottom:.3rem">Você tem retorno</div>
+        <div style="font-size:.78rem;color:var(--muted);line-height:1.5">Se deixar contato, avisamos o que foi feito a respeito.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="corner"></div>
+    <div class="corner2"></div>
+
+    <div class="rules">
+      <div>Você decide se quer se identificar. O anonimato é totalmente respeitado.</div>
+      <div>Prints da tela ajudam na apuração, mas não são obrigatórios pra você enviar.</div>
+    </div>
+
+    <div id="blockBox" class="blockbox">
+      <svg class="icon"><use href="#i-ban"></use></svg> Este dispositivo está temporariamente bloqueado para novos envios.
+    </div>
+
+    <form id="denunciaForm" autocomplete="off">
+
+      <label class="anon-box" for="anonToggle">
+        <span class="switch"><input type="checkbox" id="anonToggle"><span class="slider"></span></span>
+        <span class="anon-txt">
+          <strong>Prefiro não me identificar</strong>
+          <span>Sem problema, seu nome e Discord não serão salvos. Só o relato, a categoria e os prints (se enviar) chegam até o Alto Comando.</span>
+        </span>
+      </label>
+
+      <div id="identBlock">
+        <div class="grid2">
+          <div class="field">
+            <label for="nameInput">Seu nome / QRA</label>
+            <input type="text" id="nameInput" maxlength="60" placeholder="Como podemos te chamar" />
+            <div id="nameWarn" class="callout blocking"><span class="ic"><svg class="icon"><use href="#i-ban"></use></svg></span><span>Detectamos linguagem imprópria no nome. Remova antes de enviar.</span></div>
+          </div>
+          <div class="field">
+            <label for="contatoInput">Discord para contato <span class="opt">(opcional)</span></label>
+            <input type="text" id="contatoInput" maxlength="60" placeholder="@seu_discord" />
+            <div class="hint">Só usamos para dar retorno sobre a apuração, se você quiser.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="categoriaInput">Tipo de denúncia</label>
+        <select id="categoriaInput" required>
+          <option value="" disabled selected>Selecione...</option>
+          <option value="violencia_rp">Violência/agressão em RP (personagem)</option>
+          <option value="assedio">Assédio (entre jogadores ou por parte da liderança)</option>
+          <option value="perseguicao">Perseguição por colega de corporação</option>
+          <option value="ameaca">Ameaças (no jogo ou no Discord)</option>
+          <option value="abuso_poder">Abuso de poder (por policial ou liderança)</option>
+          <option value="exposicao">Exposição / vazamento de prints e informações</option>
+          <option value="discriminacao">Discriminação dentro da comunidade</option>
+          <option value="outro">Outro</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="denunciadoInput">Nome, QRA, patente ou Discord de quem você está denunciando <span class="opt">(se souber, opcional)</span></label>
+        <input type="text" id="denunciadoInput" maxlength="80" placeholder="Se não souber ou preferir não dizer, pode deixar em branco" />
+      </div>
+
+      <div class="field">
+        <label for="localInput">Onde dentro da corporação isso aconteceu <span class="opt">(opcional)</span></label>
+        <input type="text" id="localInput" maxlength="100" placeholder="Ex: durante plantão, em treinamento, no Discord da corporação, em abordagem..." />
+      </div>
+
+      <div class="field">
+        <label for="messageInput">Conte o que aconteceu, do seu jeito</label>
+        <textarea id="messageInput" maxlength="3000" placeholder="Não existe forma errada de escrever isso. Conte o que rolou dentro do jogo, quando foi, e qualquer detalhe que ajude a gente a entender, pode citar exatamente o que foi dito ou feito, se for importante." required></textarea>
+        <div class="charcount"><span id="charCount">0</span><span id="charMax">/3000</span></div>
+        <div id="msgFlag" class="callout"><span class="ic"><svg class="icon"><use href="#i-alert"></use></svg></span><span>Identificamos uma linguagem sensível no seu relato, tudo bem, isso não bloqueia o envio. Só avisamos que a equipe vai ler com atenção.</span></div>
+      </div>
+
+      <div class="field">
+        <label>Anexar prints ou vídeos <span class="opt">(opcional, até 5 arquivos)</span></label>
+        <div id="storageWarnBanner" style="display:none;margin-bottom:.7rem;padding:.7rem .9rem;border:1px solid rgba(240,168,60,.4);border-left:3px solid var(--amber);border-radius:var(--r-sm);background:rgba(240,168,60,.08);font-size:.78rem;color:#ffdc8a;line-height:1.5"></div>
+        <div class="dropzone" id="dropzone">
+          <div class="ic"><svg class="icon" style="width:1.6rem;height:1.6rem"><use href="#i-image"></use></svg></div>
+          <strong>Clique ou arraste os arquivos aqui</strong>
+          <span>Imagens (JPG, PNG, WEBP) ou vídeos (MP4, WEBM, MOV), até 5 arquivos, vídeos de até 2GB cada</span>
+        </div>
+        <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp,video/mp4,video/webm,video/quicktime" multiple />
+        <div class="thumbs" id="thumbs"></div>
+        <div class="hint" id="uploadHint"></div>
+        <div style="margin-top:.5rem">
+          <span id="testStorageBtn" style="font-size:.72rem;color:var(--muted2);text-decoration:underline;cursor:pointer">🔧 Testar conexão com o armazenamento (Firebase Storage)</span>
+          <div id="testStorageResult" style="font-size:.75rem;margin-top:.4rem;line-height:1.5"></div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn" id="submitBtn"><span id="submitLabel"><svg class="icon"><use href="#i-send"></use></svg> Enviar com carinho e segurança</span></button>
+      <div id="statusMsg" class="statusmsg"></div>
+    </form>
+  </div>
+
+  <div class="foot">
+    Canal de acolhimento e denúncia da corporação policial de <b style="color:var(--rose);font-family:var(--text);font-weight:600">One State</b>.
+    <div class="real">Tudo o que você conta aqui fica restrito à equipe responsável pela apuração dentro do servidor. Seja qual for a sua decisão, denunciar com nome ou anonimamente, você fez a coisa certa em falar.</div>
+  </div>
+</div>
+
+<!-- ==================== FIREBASE ==================== -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+<script>
+  // Mesmo projeto Firebase usado na Ouvidoria/Painel do Comando (comando-geral).
+  // Se preferir um projeto separado só para este canal, troque os valores
+  // abaixo pelos do seu novo projeto (Firebase Console → Configurações → Seus apps).
+  const firebaseConfig = {
+    apiKey: "AIzaSyDVIKbfNVw4_iQGdiLrJhRfcPSVNjeZDLU",
+    authDomain: "comando-geral-98c87.firebaseapp.com",
+    databaseURL: "https://comando-geral-98c87-default-rtdb.firebaseio.com",
+    projectId: "comando-geral-98c87",
+    storageBucket: "comando-geral-98c87.firebasestorage.app",
+    messagingSenderId: "744810462465",
+    appId: "1:744810462465:web:075ce2c6fdad28e6b1ef00"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+  const storage = firebase.storage();
+  // Nós usados por este canal (separados da Ouvidoria normal, pra não misturar dados):
+  //   denuncias_mulher/           → cada denúncia enviada
+  //   denuncias_mulher_banned/    → bloqueios de spam deste canal
+  //   Storage: denuncias_mulher/{id}/{arquivo}  → prints anexados
+</script>
+
+<script>
+  // Filtro de linguagem imprópria: usado só no campo NOME (pra evitar trote
+  // com nome ofensivo). NÃO é aplicado ao relato da denúncia, porque quem
+  // denuncia agressão/assédio muitas vezes precisa citar palavras ofensivas
+  // ditas contra ela, bloquear isso impediria denúncias reais. No relato,
+  // a gente só sinaliza (sem travar o envio) pra equipe ler com atenção.
+  const PALAVRAS_PROIBIDAS = [
+    "arrombad","babaca","bosta","boceta","bunda","burro","caralho","cacete",
+    "corno","cu","desgraç","escroto","filho da puta","fdp","foda","fodas",
+    "fodase","fudido","gonorrei","idiota","imbecil","krl","lixo","maldito",
+    "merda","otari","otario","otário","piranha","porra","puta","putaria",
+    "retardad","safad","tabaco","vadia","vagabund","viad","xoxota"
+  ];
+  function normalizarTexto(txt){
+    return txt.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"")
+      .replace(/0/g,"o").replace(/1/g,"i").replace(/3/g,"e")
+      .replace(/4/g,"a").replace(/5/g,"s").replace(/7/g,"t")
+      .replace(/@/g,"a").replace(/\$/g,"s");
+  }
+  function detectarPalavroes(texto){
+    const norm = normalizarTexto(texto);
+    const tokens = norm.split(/[^a-z]+/).filter(Boolean);
+    const encontradas = [];
+    for(const p of PALAVRAS_PROIBIDAS){
+      const alvo = normalizarTexto(p);
+      if(alvo.includes(" ")){
+        if(norm.includes(alvo)) encontradas.push(p);
+        continue;
+      }
+      const bate = alvo.length <= 3
+        ? tokens.some(t => t === alvo)
+        : tokens.some(t => t === alvo || t.startsWith(alvo));
+      if(bate) encontradas.push(p);
+    }
+    return encontradas;
+  }
+</script>
+
+<script>
+  function escapeHtmlLocal(str){
+    return String(str||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+  function getDeviceId(){
+    let id = localStorage.getItem("denuncia_mulher_device_id");
+    if(!id){ id = "dev-" + Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem("denuncia_mulher_device_id", id); }
+    return id;
+  }
+  function getFingerprint(){
+    const parts = [navigator.userAgent, navigator.language, navigator.platform, screen.width+"x"+screen.height, new Date().getTimezoneOffset()].join("|");
+    let hash = 0;
+    for(let i=0;i<parts.length;i++){ hash = ((hash << 5) - hash) + parts.charCodeAt(i); hash |= 0; }
+    return "fp-" + Math.abs(hash).toString(36);
+  }
+  function comTimeout(promise, ms = 10000){
+    return Promise.race([
+      promise,
+      new Promise((_, reject) => setTimeout(() => reject(new Error("TIMEOUT: sem resposta em " + (ms/1000) + "s, verifique sua internet e se scripts de gstatic.com/firebaseio.com não estão bloqueados por extensão/firewall.")), ms))
+    ]);
+  }
+
+  // Testa o Firebase Storage assim que a página carrega (sem precisar
+  // clicar em nada). Guarda o resultado em window.__storageOk pra:
+  //  - avisar a pessoa ANTES de ela perder tempo gravando/anexando um vídeo
+  //  - decidir se usamos o Storage normal ou o plano B (base64 no Realtime
+  //    Database) na hora de enviar os anexos.
+  window.__storageOk = null;
+  async function testarStorageSilencioso(){
+    try{
+      const ref = storage.ref(`_teste_conexao/teste-${Date.now()}.txt`);
+      const blob = new Blob(["teste"], { type: "text/plain" });
+      await comTimeout(ref.put(blob), 15000);
+      await ref.delete().catch(()=>{});
+      window.__storageOk = true;
+    }catch(err){
+      console.error("Storage indisponível:", err);
+      window.__storageOk = false;
+      const banner = document.getElementById("storageWarnBanner");
+      if(banner){
+        const detalhe = (err && err.code ? `[${err.code}] ` : "") + (err && err.message ? err.message : String(err));
+        banner.style.display = "block";
+        banner.innerHTML = `⚠️ O armazenamento de arquivos está com problema neste servidor (${escapeHtmlLocal(detalhe)}). Vídeos e prints grandes podem não ser enviados agora — mas não se preocupe, o texto da sua denúncia é salvo de qualquer jeito. Arquivos pequenos ainda têm uma chance de ir por um método alternativo.`;
+      }
+    }
+  }
+  testarStorageSilencioso();
+
+  async function getIP(){
+    try{
+      const ctrl = new AbortController();
+      const t = setTimeout(() => ctrl.abort(), 6000);
+      const res = await fetch("https://api.ipify.org?format=json", { signal: ctrl.signal });
+      clearTimeout(t);
+      const data = await res.json();
+      return data.ip || "desconhecido";
+    }catch(e){ return "desconhecido"; }
+  }
+  async function verificarBanimento(ip, deviceId, fingerprint){
+    const valores = [ip, deviceId, fingerprint].filter(v => v && v !== "desconhecido");
+    if(valores.length === 0) return false;
+    const queries = valores.map(v => comTimeout(db.ref("denuncias_mulher_banned").orderByChild("value").equalTo(v).limitToFirst(1).once("value")));
+    const snaps = await Promise.all(queries);
+    return snaps.some(s => s.exists());
+  }
+</script>
+
+<script>
+  // ---------- upload de prints e vídeos ----------
+  // Imagens são redimensionadas/comprimidas no navegador antes de enviar.
+  // Vídeos vão direto (não dá pra comprimir sem bibliotecas pesadas), só
+  // limitamos o tamanho máximo pra não travar o envio em conexões ruins.
+  const MAX_FILES = 5;
+  const MAX_VIDEO_MB = 2048;
+  let arquivosSelecionados = []; // [{file, previewUrl, tipo:'imagem'|'video'}]
+
+  function comprimirImagem(file, maxLado = 1440, qualidade = 0.72){
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const reader = new FileReader();
+      reader.onload = e => { img.onload = () => {
+        let {width:w, height:h} = img;
+        if(w > maxLado || h > maxLado){
+          if(w > h){ h = Math.round(h * maxLado / w); w = maxLado; }
+          else{ w = Math.round(w * maxLado / h); h = maxLado; }
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width = w; canvas.height = h;
+        canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+        canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error("Falha ao processar imagem")), "image/jpeg", qualidade);
+      }; img.onerror = () => reject(new Error("Não foi possível ler a imagem")); img.src = e.target.result; };
+      reader.onerror = () => reject(new Error("Não foi possível ler o arquivo"));
+      reader.readAsDataURL(file);
+    });
+  }
+
+  const dropzone = document.getElementById("dropzone");
+  const fileInput = document.getElementById("fileInput");
+  const thumbsEl = document.getElementById("thumbs");
+  const uploadHint = document.getElementById("uploadHint");
+
+  dropzone.addEventListener("click", () => fileInput.click());
+  dropzone.addEventListener("dragover", e => { e.preventDefault(); dropzone.classList.add("drag"); });
+  dropzone.addEventListener("dragleave", () => dropzone.classList.remove("drag"));
+  dropzone.addEventListener("drop", e => {
+    e.preventDefault(); dropzone.classList.remove("drag");
+    handleFiles(e.dataTransfer.files);
+  });
+  fileInput.addEventListener("change", () => handleFiles(fileInput.files));
+
+  function handleFiles(fileList){
+    const novos = Array.from(fileList).filter(f => f.type.startsWith("image/") || f.type.startsWith("video/"));
+    for(const f of novos){
+      if(arquivosSelecionados.length >= MAX_FILES){
+        uploadHint.textContent = `Limite de ${MAX_FILES} arquivos atingido.`;
+        break;
+      }
+      const isVideo = f.type.startsWith("video/");
+      if(isVideo && f.size > MAX_VIDEO_MB * 1024 * 1024){
+        uploadHint.textContent = `O vídeo "${f.name}" passa de ${(MAX_VIDEO_MB/1024).toFixed(1)}GB e não foi adicionado.`;
+        continue;
+      }
+      arquivosSelecionados.push({ file: f, previewUrl: URL.createObjectURL(f), tipo: isVideo ? "video" : "imagem" });
+    }
+    fileInput.value = "";
+    renderThumbs();
+  }
+
+  function renderThumbs(){
+    uploadHint.textContent = arquivosSelecionados.length ? `${arquivosSelecionados.length}/${MAX_FILES} arquivo(s) selecionado(s)` : "";
+    thumbsEl.innerHTML = arquivosSelecionados.map((a,i) => `
+      <div class="thumb" data-i="${i}">
+        ${a.tipo === "video"
+          ? `<video src="${a.previewUrl}" muted></video><div class="vid-badge">▶ vídeo</div>`
+          : `<img src="${a.previewUrl}" alt="Print ${i+1}">`}
+        ${a.progresso != null ? `<div class="prog"><span class="spinner"></span><span class="pct">${a.progresso}%</span></div>` : ""}
+        ${a.erro ? `<div class="fail" title="${(a.erroMsg||'').replace(/"/g,'&quot;')}">Falhou: ${(a.erroMsg||'erro desconhecido').slice(0,40)}</div>` : ""}
+        <div class="rm" onclick="removerArquivo(${i})">✕</div>
+      </div>`).join("");
+  }
+  function removerArquivo(i){ arquivosSelecionados.splice(i,1); renderThumbs(); }
+  window.removerArquivo = removerArquivo;
+
+  // Sobe um arquivo com acompanhamento de progresso real (não só um timeout
+  // cego) — assim dá pra ver que está subindo de verdade, mesmo em conexões
+  // lentas com vídeo grande, em vez de parecer que travou.
+  // Limite pro plano B (salvar direto no Realtime Database em base64).
+  // Bem menor que o do Storage, porque banco de dados não foi feito pra
+  // guardar arquivo grande — mas garante que pelo menos prints e vídeos
+  // curtos cheguem até o Alto Comando mesmo se o Storage estiver quebrado.
+  const LIMITE_FALLBACK_MB = 6;
+
+  function arquivoParaBase64(blob){
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result); // já vem como "data:<mime>;base64,...."
+      reader.onerror = () => reject(new Error("Não foi possível ler o arquivo pra envio alternativo."));
+      reader.readAsDataURL(blob);
+    });
+  }
+
+  // Salva o arquivo direto no Realtime Database (sem Storage), como plano B.
+  async function subirViaFallback(blob, tipo, mimeType){
+    if(blob.size > LIMITE_FALLBACK_MB * 1024 * 1024){
+      throw new Error(`O armazenamento de arquivos está indisponível no momento, e este arquivo passa do limite de ${LIMITE_FALLBACK_MB}MB do envio alternativo. Tente um arquivo menor, ou avise o Alto Comando sobre o problema técnico do site.`);
+    }
+    const dataUrl = await arquivoParaBase64(blob);
+    return { data: dataUrl, tipo, inline: true };
+  }
+
+  function subirArquivo(file, tipo, denunciaId, i){
+    return new Promise((resolve, reject) => {
+      let nomeArquivo;
+      let blobPromise;
+      if(tipo === "imagem"){
+        nomeArquivo = `print-${i+1}-${Date.now()}.jpg`;
+        blobPromise = comprimirImagem(file);
+      } else {
+        const ext = (file.name.split(".").pop() || "mp4").toLowerCase();
+        nomeArquivo = `video-${i+1}-${Date.now()}.${ext}`;
+        blobPromise = Promise.resolve(file);
+      }
+      blobPromise.then(async blob => {
+        // Se já sabemos (pelo teste automático ao carregar a página) que o
+        // Storage está quebrado, nem tenta — vai direto pro plano B.
+        if(window.__storageOk === false){
+          try{
+            arquivosSelecionados[i].progresso = 50;
+            renderThumbs();
+            const anexo = await subirViaFallback(blob, tipo, file.type);
+            arquivosSelecionados[i].progresso = 100;
+            resolve(anexo);
+          }catch(err){ reject(err); }
+          return;
+        }
+
+        const ref = storage.ref(`denuncias_mulher/${denunciaId}/${nomeArquivo}`);
+        const task = ref.put(blob);
+        // Watchdog em 2 etapas:
+        //  - Se ficar 20s TRAVADO EM 0% (nunca chegou a começar de verdade),
+        //    isso quase sempre indica que o Firebase Storage não está
+        //    habilitado/configurado nesse projeto — a requisição nem consegue
+        //    começar, então não dá erro nem progresso, só fica girando.
+        //  - Se já começou a subir mas parar de progredir por 30s, também
+        //    consideramos travado (conexão caiu no meio do envio).
+        let ultimosBytes = 0;
+        let comecouAlgumProgresso = false;
+        let watchdog = setTimeout(checarTravado, 20000);
+        function checarTravado(){
+          const atual = task.snapshot.bytesTransferred;
+          if(atual === ultimosBytes){
+            task.cancel();
+            tentarFallback();
+          } else {
+            if(atual > 0) comecouAlgumProgresso = true;
+            ultimosBytes = atual;
+            watchdog = setTimeout(checarTravado, 30000);
+          }
+        }
+        async function tentarFallback(){
+          // O Storage não respondeu — antes de desistir de vez, tenta o
+          // plano B (base64 no banco), que não depende do Storage.
+          try{
+            arquivosSelecionados[i].progresso = 50;
+            renderThumbs();
+            const anexo = await subirViaFallback(blob, tipo, file.type);
+            arquivosSelecionados[i].progresso = 100;
+            resolve(anexo);
+          }catch(fallbackErr){
+            const msg = comecouAlgumProgresso
+              ? "TIMEOUT: o envio começou mas parou de responder no meio do caminho, e o envio alternativo também não deu certo. " + fallbackErr.message
+              : "O Firebase Storage não respondeu (provavelmente não está habilitado ou configurado neste projeto), e o envio alternativo também não deu certo: " + fallbackErr.message;
+            reject(new Error(msg));
+          }
+        }
+        task.on("state_changed", snap => {
+          const pct = snap.totalBytes ? Math.round((snap.bytesTransferred / snap.totalBytes) * 100) : 0;
+          arquivosSelecionados[i].progresso = pct;
+          renderThumbs();
+        }, async err => {
+          clearTimeout(watchdog);
+          await tentarFallback();
+        }, async () => {
+          clearTimeout(watchdog);
+          try{
+            const url = await task.snapshot.ref.getDownloadURL();
+            resolve({ url, tipo });
+          }catch(err){ reject(err); }
+        });
+      }).catch(reject);
+    });
+  }
+
+  async function enviarImagens(denunciaId){
+    const anexos = [];
+    let falharam = 0;
+    let ultimoErro = "";
+    for(let i=0; i<arquivosSelecionados.length; i++){
+      const { file, tipo } = arquivosSelecionados[i];
+      try{
+        const anexo = await subirArquivo(file, tipo, denunciaId, i);
+        anexos.push(anexo);
+        arquivosSelecionados[i].progresso = null;
+      }catch(err){
+        console.error("Falha ao enviar anexo:", err);
+        arquivosSelecionados[i].progresso = null;
+        arquivosSelecionados[i].erro = true;
+        ultimoErro = (err && err.code ? `[${err.code}] ` : "") + (err && err.message ? err.message : String(err));
+        arquivosSelecionados[i].erroMsg = ultimoErro;
+        falharam++;
+      }
+      renderThumbs();
+    }
+    return { anexos, falharam, ultimoErro };
+  }
+
+  // Teste rápido e isolado: sobe um arquivinho de 20 bytes pro Storage e
+  // apaga na sequência. Não depende do formulário estar preenchido — serve
+  // só pra confirmar se o Firebase Storage deste projeto está mesmo
+  // funcionando, sem precisar enviar uma denúncia inteira pra descobrir.
+  document.getElementById("testStorageBtn").addEventListener("click", async () => {
+    const resultEl = document.getElementById("testStorageResult");
+    resultEl.style.color = "var(--muted)";
+    resultEl.textContent = "Testando... (isso deve levar só alguns segundos)";
+    const inicio = Date.now();
+    try{
+      const ref = storage.ref(`_teste_conexao/teste-${Date.now()}.txt`);
+      const blob = new Blob(["teste de conexao"], { type: "text/plain" });
+      await comTimeout(ref.put(blob), 20000);
+      await ref.getDownloadURL();
+      await ref.delete().catch(()=>{}); // limpeza, não crítico se falhar
+      const segundos = ((Date.now() - inicio) / 1000).toFixed(1);
+      resultEl.style.color = "var(--green)";
+      resultEl.innerHTML = `${ICO.check} Storage funcionando normalmente (respondeu em ${segundos}s). Se o vídeo mesmo assim não sobe, o problema é o tamanho do arquivo ou a sua conexão, não a configuração do Firebase.`;
+    }catch(err){
+      console.error("Teste de Storage falhou:", err);
+      resultEl.style.color = "var(--red-b)";
+      const detalhe = (err && err.code ? `[${err.code}] ` : "") + (err && err.message ? err.message : String(err));
+      resultEl.innerHTML = `${ICO.ban} Storage NÃO está respondendo. Erro técnico: <code style="font-family:var(--mono);font-size:.85em">${escapeHtmlLocal(detalhe)}</code><br>Isso confirma que é um problema de configuração no Firebase Console (Storage não habilitado, regras bloqueando escrita, ou plano Spark sem Storage liberado) — não é sua internet.`;
+    }
+  });
+</script>
+
+<script>
+  const ICO = {
+    ban: '<svg class="icon"><use href="#i-ban"></use></svg>',
+    alert: '<svg class="icon"><use href="#i-alert"></use></svg>',
+    check: '<svg class="icon"><use href="#i-check"></use></svg>',
+    send: '<svg class="icon"><use href="#i-send"></use></svg>'
+  };
+  const form = document.getElementById("denunciaForm");
+  const anonToggle = document.getElementById("anonToggle");
+  const identBlock = document.getElementById("identBlock");
+  const nameInput = document.getElementById("nameInput");
+  const contatoInput = document.getElementById("contatoInput");
+  const messageInput = document.getElementById("messageInput");
+  const nameWarn = document.getElementById("nameWarn");
+  const msgFlag = document.getElementById("msgFlag");
+  const charCount = document.getElementById("charCount");
+  const statusMsg = document.getElementById("statusMsg");
+  const submitBtn = document.getElementById("submitBtn");
+  const submitLabel = document.getElementById("submitLabel");
+  const blockBox = document.getElementById("blockBox");
+
+  anonToggle.addEventListener("change", () => {
+    identBlock.style.display = anonToggle.checked ? "none" : "block";
+  });
+
+  messageInput.addEventListener("input", () => {
+    const len = messageInput.value.length;
+    charCount.textContent = len;
+    charCount.parentElement.classList.toggle("near", len >= 2700 && len < 3000);
+    charCount.parentElement.classList.toggle("full", len >= 3000);
+    msgFlag.classList.toggle("show", detectarPalavroes(messageInput.value).length > 0);
+  });
+  nameInput.addEventListener("input", () => {
+    nameWarn.classList.toggle("show", detectarPalavroes(nameInput.value).length > 0);
+  });
+
+  function setStatus(kind, html){ statusMsg.className = "statusmsg show " + kind; statusMsg.innerHTML = html; }
+
+  (async () => {
+    try{
+      const deviceId = getDeviceId(); const fingerprint = getFingerprint(); const ip = await getIP();
+      window.__ip = ip; window.__deviceId = deviceId; window.__fingerprint = fingerprint;
+      if(await verificarBanimento(ip, deviceId, fingerprint)){
+        blockBox.classList.add("show"); submitBtn.disabled = true; submitLabel.innerHTML = ICO.ban + " Envio bloqueado";
+      }
+    }catch(e){}
+  })();
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    statusMsg.className = "statusmsg";
+
+    const anonima = anonToggle.checked;
+    const nome = anonima ? "" : nameInput.value.trim();
+    const contato = anonima ? "" : contatoInput.value.trim();
+    const categoria = document.getElementById("categoriaInput").value;
+    const denunciado = document.getElementById("denunciadoInput").value.trim();
+    const local = document.getElementById("localInput").value.trim();
+    const mensagem = messageInput.value.trim();
+
+    if(!categoria || !mensagem){ setStatus("err", ICO.alert + " Preencha o tipo de denúncia e o relato antes de enviar."); return; }
+    if(!anonima && !nome){ setStatus("err", ICO.alert + " Informe seu nome ou marque a opção de enviar como anônima."); return; }
+
+    // Linguagem imprópria só bloqueia no campo NOME (evita trote com nome ofensivo).
+    const palavroesNome = anonima ? [] : detectarPalavroes(nome);
+    if(palavroesNome.length){
+      nameWarn.classList.add("show");
+      setStatus("err", ICO.ban + " Seu nome contém linguagem imprópria e o envio foi bloqueado. Revise e tente novamente.");
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitLabel.innerHTML = '<span class="spinner"></span> Enviando com segurança...';
+
+    try{
+      const ip = window.__ip || await getIP();
+      const deviceId = window.__deviceId || getDeviceId();
+      const fingerprint = window.__fingerprint || getFingerprint();
+
+      if(await verificarBanimento(ip, deviceId, fingerprint)){
+        blockBox.classList.add("show");
+        setStatus("err", ICO.ban + " Este dispositivo está bloqueado para novos envios.");
+        submitBtn.disabled = true; submitLabel.innerHTML = ICO.ban + " Envio bloqueado";
+        return;
+      }
+
+      // Cria a chave da denúncia antes, pra já poder subir as imagens na pasta certa.
+      const novaRef = db.ref("denuncias_mulher").push();
+      const denunciaId = novaRef.key;
+
+      let anexos = [];
+      let falharam = 0;
+      let ultimoErro = "";
+      if(arquivosSelecionados.length){
+        submitLabel.innerHTML = '<span class="spinner"></span> Enviando arquivos...';
+        const resultado = await enviarImagens(denunciaId);
+        anexos = resultado.anexos;
+        falharam = resultado.falharam;
+        ultimoErro = resultado.ultimoErro;
+      }
+
+      submitLabel.innerHTML = '<span class="spinner"></span> Salvando denúncia...';
+
+      await comTimeout(novaRef.set({
+        anonima,
+        name: anonima ? "" : nome,
+        contato: anonima ? "" : contato,
+        categoria, denunciado, local,
+        message: mensagem,
+        hasFlaggedLanguage: detectarPalavroes(mensagem).length > 0,
+        anexos,
+        status: "pendente",
+        ip, deviceId, fingerprint, userAgent: navigator.userAgent,
+        createdAt: firebase.database.ServerValue.TIMESTAMP
+      }));
+
+      form.reset(); charCount.textContent = "0";
+      nameWarn.classList.remove("show"); msgFlag.classList.remove("show");
+      identBlock.style.display = "block";
+      arquivosSelecionados = []; renderThumbs();
+      if(falharam > 0){
+        setStatus("err", ICO.alert + ` Sua denúncia foi enviada e registrada, mas ${falharam} arquivo(s) anexado(s) não conseguiram subir. O relato já está salvo com o Alto Comando mesmo assim. Detalhe técnico do erro (mostre isso pra quem administra o site): ${escapeHtmlLocal(ultimoErro)}`);
+      } else {
+        setStatus("ok", ICO.check + " Recebemos sua mensagem. Obrigada por confiar em nós, vamos cuidar disso com atenção e sigilo. Você é muito importante pra essa comunidade.");
+      }
+      submitBtn.disabled = false; submitLabel.innerHTML = ICO.send + " Enviar com carinho e segurança";
+    }catch(err){
+      console.error(err);
+      const detalhe = err && err.message ? err.message : "";
+      setStatus("err", detalhe.startsWith("TIMEOUT")
+        ? ICO.ban + " " + detalhe
+        : ICO.ban + " Não foi possível enviar agora. Verifique sua conexão e tente novamente. Abra o Console do navegador (F12) para mais detalhes técnicos.");
+      submitBtn.disabled = false; submitLabel.innerHTML = ICO.send + " Enviar com carinho e segurança";
+    }
+  });
+</script>
+</body>
+</html>
