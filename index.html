@@ -502,12 +502,14 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
   // Limite pro plano B "rápido" (salvar direto no Realtime Database em
   // base64). Bem menor que o de vídeo grande, porque banco de dados não foi
   // feito pra guardar arquivo grande.
-  const LIMITE_FALLBACK_MB = 6;
-  // Limite do plano C: hospedagem gratuita externa (catbox.moe), usada só
-  // quando o arquivo é grande demais pro banco de dados. Não exige cartão,
-  // login ou plano pago — é a alternativa real enquanto o Firebase Storage
-  // não estiver disponível (precisa do plano Blaze, que é pago).
-  const LIMITE_CATBOX_MB = 190;
+  const LIMITE_FALLBACK_MB = 20;
+  // Limite do plano C: Cloudinary (conta gratuita, sem cartão), usada só
+  // quando o arquivo é grande demais pro banco de dados. É a alternativa
+  // real enquanto o Firebase Storage não estiver disponível (precisa do
+  // plano Blaze, que é pago).
+  const LIMITE_CLOUDINARY_MB = 190;
+  const CLOUDINARY_CLOUD_NAME = "eijsloup";
+  const CLOUDINARY_UPLOAD_PRESET = "iskxoogj";
 
   function arquivoParaBase64(blob){
     return new Promise((resolve, reject) => {
@@ -518,33 +520,38 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
     });
   }
 
-  // Sobe pro catbox.moe (hospedagem de arquivo gratuita, sem precisar de
-  // conta nem chave de API) e devolve o link direto do arquivo.
-  async function subirViaCatbox(blob, nomeArquivo){
+  // Sobe pro Cloudinary (conta gratuita, feita pra aceitar upload direto do
+  // navegador com segurança via "unsigned upload preset" — sem precisar
+  // expor nenhuma senha/chave secreta no código) e devolve o link direto.
+  async function subirViaCloudinary(blob, nomeArquivo, tipo){
+    const resourceType = tipo === "video" ? "video" : "image";
     const form = new FormData();
-    form.append("reqtype", "fileupload");
-    form.append("fileToUpload", blob, nomeArquivo);
-    const res = await comTimeout(fetch("https://catbox.moe/user/api.php", { method: "POST", body: form }), 300000);
-    if(!res.ok) throw new Error(`catbox.moe respondeu com erro ${res.status}`);
-    const url = (await res.text()).trim();
-    if(!url.startsWith("http")) throw new Error("catbox.moe não devolveu um link válido: " + url.slice(0,120));
-    return url;
+    form.append("file", blob, nomeArquivo);
+    form.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+    const endpoint = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`;
+    const res = await comTimeout(fetch(endpoint, { method: "POST", body: form }), 300000);
+    const json = await res.json().catch(() => null);
+    if(!res.ok || !json || !json.secure_url){
+      const msg = json && json.error && json.error.message ? json.error.message : `Cloudinary respondeu com erro ${res.status}`;
+      throw new Error(msg);
+    }
+    return json.secure_url;
   }
 
   // Plano B (quando o Storage não está disponível):
-  //  - arquivo pequeno (até 6MB) → salva direto no banco de dados
-  //  - arquivo maior (até 190MB) → sobe pro catbox.moe (grátis, sem cadastro)
+  //  - arquivo pequeno (até 20MB) → salva direto no banco de dados
+  //  - arquivo maior (até 190MB) → sobe pro Cloudinary (grátis, sem cartão)
   //  - maior que isso → não tem como enviar de graça, avisa o motivo
   async function subirViaFallback(blob, tipo, nomeArquivo){
     if(blob.size <= LIMITE_FALLBACK_MB * 1024 * 1024){
       const dataUrl = await arquivoParaBase64(blob);
       return { data: dataUrl, tipo, inline: true };
     }
-    if(blob.size <= LIMITE_CATBOX_MB * 1024 * 1024){
-      const url = await subirViaCatbox(blob, nomeArquivo);
-      return { url, tipo, fonte: "catbox" };
+    if(blob.size <= LIMITE_CLOUDINARY_MB * 1024 * 1024){
+      const url = await subirViaCloudinary(blob, nomeArquivo, tipo);
+      return { url, tipo, fonte: "cloudinary" };
     }
-    throw new Error(`Este arquivo passa de ${LIMITE_CATBOX_MB}MB, que é o maior tamanho possível pelos métodos gratuitos disponíveis agora. Tente um arquivo menor, ou avise o Alto Comando pra ativar o Firebase Storage (plano pago) se precisar de arquivos maiores no futuro.`);
+    throw new Error(`Este arquivo passa de ${LIMITE_CLOUDINARY_MB}MB, que é o maior tamanho possível pelos métodos gratuitos disponíveis agora. Tente um arquivo menor, ou avise o Alto Comando pra ativar o Firebase Storage (plano pago) se precisar de arquivos maiores no futuro.`);
   }
 
   function subirArquivo(file, tipo, denunciaId, i){
@@ -677,20 +684,25 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
       statusStorage = `${ICO.ban} Firebase Storage: indisponível (${escapeHtmlLocal(detalhe)}). Normalmente é o plano Blaze não ativado.`;
     }
 
-    let statusCatbox = "";
+    let statusCloudinary = "";
     try{
       const inicio2 = Date.now();
-      const blob2 = new Blob(["teste de conexao"], { type: "text/plain" });
-      await subirViaCatbox(blob2, "teste-conexao.txt");
+      // Cloudinary exige um arquivo de mídia de verdade (não aceita texto
+      // puro) — usamos um PNG mínimo de 1x1 pixel só pra testar a conexão.
+      const png1x1 = atob("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=");
+      const bytes = new Uint8Array(png1x1.length);
+      for(let k=0;k<png1x1.length;k++) bytes[k] = png1x1.charCodeAt(k);
+      const blob2 = new Blob([bytes], { type: "image/png" });
+      await subirViaCloudinary(blob2, "teste-conexao.png", "imagem");
       const segundos2 = ((Date.now() - inicio2) / 1000).toFixed(1);
-      statusCatbox = `${ICO.check} Método gratuito (catbox.moe): funcionando (respondeu em ${segundos2}s). Vídeos de até ${LIMITE_CATBOX_MB}MB devem funcionar normalmente.`;
+      statusCloudinary = `${ICO.check} Método gratuito (Cloudinary): funcionando (respondeu em ${segundos2}s). Vídeos de até ${LIMITE_CLOUDINARY_MB}MB devem funcionar normalmente.`;
     }catch(err){
       const detalhe2 = (err && err.message) ? err.message : String(err);
-      statusCatbox = `${ICO.ban} Método gratuito (catbox.moe): indisponível agora (${escapeHtmlLocal(detalhe2)}). Só arquivos de até ${LIMITE_FALLBACK_MB}MB conseguem ser enviados nesse caso.`;
+      statusCloudinary = `${ICO.ban} Método gratuito (Cloudinary): indisponível agora (${escapeHtmlLocal(detalhe2)}). Só arquivos de até ${LIMITE_FALLBACK_MB}MB conseguem ser enviados nesse caso.`;
     }
 
     resultEl.style.color = "var(--body)";
-    resultEl.innerHTML = statusStorage + "<br>" + statusCatbox;
+    resultEl.innerHTML = statusStorage + "<br>" + statusCloudinary;
   });
 </script>
 
