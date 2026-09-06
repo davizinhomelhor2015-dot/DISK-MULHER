@@ -764,6 +764,7 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
         ip, deviceId, fingerprint, userAgent: navigator.userAgent,
         createdAt: firebase.database.ServerValue.TIMESTAMP
       }));
+
       form.reset(); charCount.textContent = "0";
       nameWarn.classList.remove("show"); msgFlag.classList.remove("show");
       identBlock.style.display = "block";
