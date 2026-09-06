@@ -257,7 +257,6 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
 
       <div class="field">
         <label>Anexar prints ou vídeos <span class="opt">(opcional, até 5 arquivos)</span></label>
-        <div id="storageWarnBanner" style="display:none;margin-bottom:.7rem;padding:.7rem .9rem;border:1px solid rgba(240,168,60,.4);border-left:3px solid var(--amber);border-radius:var(--r-sm);background:rgba(240,168,60,.08);font-size:.78rem;color:#ffdc8a;line-height:1.5"></div>
         <div class="dropzone" id="dropzone">
           <div class="ic"><svg class="icon" style="width:1.6rem;height:1.6rem"><use href="#i-image"></use></svg></div>
           <strong>Clique ou arraste os arquivos aqui</strong>
@@ -266,10 +265,6 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
         <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp,video/mp4,video/webm,video/quicktime" multiple />
         <div class="thumbs" id="thumbs"></div>
         <div class="hint" id="uploadHint"></div>
-        <div style="margin-top:.5rem">
-          <span id="testStorageBtn" style="font-size:.72rem;color:var(--muted2);text-decoration:underline;cursor:pointer">🔧 Testar conexão com o armazenamento (Firebase Storage)</span>
-          <div id="testStorageResult" style="font-size:.75rem;margin-top:.4rem;line-height:1.5"></div>
-        </div>
       </div>
 
       <button type="submit" class="btn" id="submitBtn"><span id="submitLabel"><svg class="icon"><use href="#i-send"></use></svg> Enviar com carinho e segurança</span></button>
@@ -376,10 +371,10 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
   }
 
   // Testa o Firebase Storage assim que a página carrega (sem precisar
-  // clicar em nada). Guarda o resultado em window.__storageOk pra:
-  //  - avisar a pessoa ANTES de ela perder tempo gravando/anexando um vídeo
-  //  - decidir se usamos o Storage normal ou o plano B (base64 no Realtime
-  //    Database) na hora de enviar os anexos.
+  // clicar em nada, e sem mostrar nada técnico pra quem está denunciando).
+  // Só guarda o resultado em window.__storageOk pra decidir, na hora de
+  // enviar o anexo, se usa o Storage normal ou o plano B/C (banco de dados
+  // ou Cloudinary) — tudo isso acontece por trás dos panos.
   window.__storageOk = null;
   async function testarStorageSilencioso(){
     try{
@@ -389,14 +384,7 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
       await ref.delete().catch(()=>{});
       window.__storageOk = true;
     }catch(err){
-      console.error("Storage indisponível:", err);
       window.__storageOk = false;
-      const banner = document.getElementById("storageWarnBanner");
-      if(banner){
-        const detalhe = (err && err.code ? `[${err.code}] ` : "") + (err && err.message ? err.message : String(err));
-        banner.style.display = "block";
-        banner.innerHTML = `ℹ️ Este site está usando um método alternativo e gratuito pra guardar os arquivos anexados (o armazenamento principal não está disponível: ${escapeHtmlLocal(detalhe)}). Prints e vídeos de até 190MB continuam funcionando normalmente por esse método. Só arquivos maiores que isso não conseguem ser enviados por enquanto — mas o texto da sua denúncia é salvo sempre, mesmo sem anexo.`;
-      }
     }
   }
   testarStorageSilencioso();
@@ -659,51 +647,6 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
     }
     return { anexos, falharam, ultimoErro };
   }
-
-  // Teste rápido e isolado: sobe um arquivinho de 20 bytes pro Storage e
-  // apaga na sequência. Não depende do formulário estar preenchido — serve
-  // só pra confirmar se o Firebase Storage deste projeto está mesmo
-  // funcionando, sem precisar enviar uma denúncia inteira pra descobrir.
-  document.getElementById("testStorageBtn").addEventListener("click", async () => {
-    const resultEl = document.getElementById("testStorageResult");
-    resultEl.style.color = "var(--muted)";
-    resultEl.textContent = "Testando os dois métodos de envio... (alguns segundos)";
-
-    let statusStorage = "";
-    try{
-      const inicio = Date.now();
-      const ref = storage.ref(`_teste_conexao/teste-${Date.now()}.txt`);
-      const blob = new Blob(["teste de conexao"], { type: "text/plain" });
-      await comTimeout(ref.put(blob), 20000);
-      await ref.getDownloadURL();
-      await ref.delete().catch(()=>{});
-      const segundos = ((Date.now() - inicio) / 1000).toFixed(1);
-      statusStorage = `${ICO.check} Firebase Storage: funcionando (respondeu em ${segundos}s).`;
-    }catch(err){
-      const detalhe = (err && err.code ? `[${err.code}] ` : "") + (err && err.message ? err.message : String(err));
-      statusStorage = `${ICO.ban} Firebase Storage: indisponível (${escapeHtmlLocal(detalhe)}). Normalmente é o plano Blaze não ativado.`;
-    }
-
-    let statusCloudinary = "";
-    try{
-      const inicio2 = Date.now();
-      // Cloudinary exige um arquivo de mídia de verdade (não aceita texto
-      // puro) — usamos um PNG mínimo de 1x1 pixel só pra testar a conexão.
-      const png1x1 = atob("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=");
-      const bytes = new Uint8Array(png1x1.length);
-      for(let k=0;k<png1x1.length;k++) bytes[k] = png1x1.charCodeAt(k);
-      const blob2 = new Blob([bytes], { type: "image/png" });
-      await subirViaCloudinary(blob2, "teste-conexao.png", "imagem");
-      const segundos2 = ((Date.now() - inicio2) / 1000).toFixed(1);
-      statusCloudinary = `${ICO.check} Método gratuito (Cloudinary): funcionando (respondeu em ${segundos2}s). Vídeos de até ${LIMITE_CLOUDINARY_MB}MB devem funcionar normalmente.`;
-    }catch(err){
-      const detalhe2 = (err && err.message) ? err.message : String(err);
-      statusCloudinary = `${ICO.ban} Método gratuito (Cloudinary): indisponível agora (${escapeHtmlLocal(detalhe2)}). Só arquivos de até ${LIMITE_FALLBACK_MB}MB conseguem ser enviados nesse caso.`;
-    }
-
-    resultEl.style.color = "var(--body)";
-    resultEl.innerHTML = statusStorage + "<br>" + statusCloudinary;
-  });
 </script>
 
 <script>
@@ -821,7 +764,6 @@ textarea{min-height:150px;resize:vertical;line-height:1.55}
         ip, deviceId, fingerprint, userAgent: navigator.userAgent,
         createdAt: firebase.database.ServerValue.TIMESTAMP
       }));
-
       form.reset(); charCount.textContent = "0";
       nameWarn.classList.remove("show"); msgFlag.classList.remove("show");
       identBlock.style.display = "block";
